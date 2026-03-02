@@ -1,9 +1,9 @@
-  <!DOCTYPE html>                 
-  <html lang="da">
-  <head>
-      <meta charset="UTF-8">                                                    
+ <!DOCTYPE html>                                                               
+  <html lang="da">                                                              
+  <head>                                                                        
+      <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>KODEKS.TECH | Jura & Teknologi</title>                             
+      <title>KODEKS.TECH | Jura & Teknologi</title>
       <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wgh
   t@400;500;600;700&display=swap" rel="stylesheet">
       <script
@@ -51,8 +51,9 @@
   border-slate-100 h-20">
           <div class="max-w-5xl mx-auto px-6 h-full flex justify-between
   items-center">
-              <a href="#" onclick="navigateTo('home')" class="text-xl font-bold
-  tracking-tight">KODEKS<span class="text-brand-yellow">.</span>TECH</a>
+              <a href="#" onclick="navigateTo('home'); return false;"
+  class="text-xl font-bold tracking-tight">KODEKS<span
+  class="text-brand-yellow">.</span>TECH</a>
 
               <!-- Desktop Navigation -->
               <div class="hidden md:flex items-center space-x-8 text-xs
@@ -128,6 +129,7 @@
           </div>
       </nav>
 
+      <!-- ========== MAIN CONTENT ========== -->
       <main class="pt-32">
 
           <!-- ========== HOME SECTION ========== -->
@@ -322,14 +324,14 @@
   data-i18n="form_name">Navn</label>
                               <input type="text" id="form-name" required
   class="form-input w-full px-4 py-3 rounded-xl border border-slate-200 bg-white
-   transition" placeholder="">
+   transition">
                           </div>
                           <div>
                               <label class="block text-sm font-semibold mb-2"
   data-i18n="form_email">E-mail</label>
                               <input type="email" id="form-email" required
   class="form-input w-full px-4 py-3 rounded-xl border border-slate-200 bg-white
-   transition" placeholder="">
+   transition">
                           </div>
                       </div>
                       <div class="mb-6">
@@ -354,7 +356,7 @@
   data-i18n="form_message">Besked</label>
                           <textarea id="form-message" rows="5" required
   class="form-input w-full px-4 py-3 rounded-xl border border-slate-200 bg-white
-   transition resize-none" placeholder=""></textarea>
+   transition resize-none"></textarea>
                       </div>
                       <button type="submit" class="w-full px-8 py-4
   bg-brand-yellow text-white font-bold rounded-xl shadow-lg
@@ -397,8 +399,8 @@
   text-slate-900" data-i18n="footer_nav">Navigation</h4>
                   <ul class="space-y-4 text-sm text-slate-600 font-medium">
                       <li><button onclick="navigateTo('articles')"
-  class="hover:text-brand-yellow transition" data-i18n="nav_articles">Nyheder &
-  Analyser</button></li>
+  class="hover:text-brand-yellow transition"
+  data-i18n="nav_articles">Medie</button></li>
                       <li><button onclick="navigateTo('courses')"
   class="hover:text-brand-yellow transition"
   data-i18n="nav_courses">Akademi</button></li>
@@ -438,41 +440,51 @@
 
       <!-- ========== JAVASCRIPT ========== -->
       <script>
+          // ==================== NAVIGATION (DEFINERES FØRST)
+  ====================
+          function navigateTo(id) {
+              document.querySelectorAll('.page-section').forEach(function(s) {
+                  s.classList.remove('active');
+              });
+              var section = document.getElementById(id);
+              if (section) {
+                  section.classList.add('active');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+          }
+
+          function toggleMobileMenu() {
+              var menu = document.getElementById('mobile-menu');
+              var menuIcon = document.getElementById('menu-icon');
+              var closeIcon = document.getElementById('close-icon');
+              if (menu) menu.classList.toggle('open');
+              if (menuIcon) menuIcon.classList.toggle('hidden');
+              if (closeIcon) closeIcon.classList.toggle('hidden');
+          }
+
           // ==================== SUPABASE KONFIGURATION ====================
-          const SUPABASE_URL = 'https://rrggbjvyefvctkqnmfyf.supabase.co';
-          const SUPABASE_ANON_KEY =
+          var SUPABASE_URL = 'https://rrggbjvyefvctkqnmfyf.supabase.co';
+          var SUPABASE_ANON_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJyZ2di
   anZ5ZWZ2Y3RrcW5tZnlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0NTQwNjMsImV4cCI6MjA4OD
   AzMDA2M30.s_RfB4mMq1f_0mpBUlsp70u1O1joCLLnF3FIzDfhTYc';
-          let _supabase = null;
-  try {
-      _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  } catch (e) {
-      console.warn('Supabase kunne ikke initialiseres:', e);
-  }
 
-  Og opdater loadData() funktionen til:
-  async function loadData() {
-      if (!_supabase) {
-          document.getElementById('article-list').innerHTML = '<p
-  class="text-red-500">Supabase ikke konfigureret</p>';
-          document.getElementById('course-list').innerHTML = '<p
-  class="text-red-500">Supabase ikke konfigureret</p>';
-          return;
-      }
-
+          var _supabase = null;
+          try {
+              _supabase = supabase.createClient(SUPABASE_URL,
+  SUPABASE_ANON_KEY);
+          } catch (e) {
+              console.warn('Supabase kunne ikke initialiseres:', e);
+          }
 
           // ==================== TRANSLATIONS ====================
-          const translations = {
+          var translations = {
               da: {
-                  // Navigation
                   nav_articles: "Medie",
                   nav_courses: "Akademi",
                   nav_about: "Om os",
                   nav_contact: "Kontakt",
                   language_label: "Sprog",
-
-                  // Hero
                   hero_title_1: "Klarhed i et",
                   hero_title_2: "komplekst",
                   hero_title_3: "marked.",
@@ -480,16 +492,12 @@
   og teknologi. Få indsigt, der gør en forskel.",
                   hero_cta_articles: "Læs artikler",
                   hero_cta_courses: "Se kurser",
-
-                  // Articles
                   articles_title: "Nyheder & Analyser",
                   articles_subtitle: "De seneste indsigter inden for tech-jura",
                   read_article: "Læs artiklen",
                   back_to_articles: "Tilbage til artikler",
                   loading: "Indlæser...",
                   no_articles: "Ingen artikler fundet.",
-
-                  // Courses
                   courses_title: "Akademi",
                   courses_subtitle: "Kurser og uddannelse inden for tech-jura",
                   view_course: "Se kursus",
@@ -498,8 +506,6 @@
                   enroll_btn: "Tilmeld mig",
                   no_courses: "Ingen kurser fundet.",
                   no_description: "Ingen beskrivelse tilgængelig.",
-
-                  // About
                   about_title: "Om KODEKS.TECH",
                   about_subtitle: "Vores mission og vision",
                   about_mission_title: "Vores Mission",
@@ -522,8 +528,6 @@
                   expertise_2: "AI & Maskinlæring",
                   expertise_3: "IT-kontrakter",
                   expertise_4: "Digital Compliance",
-
-                  // Contact
                   contact_title: "Kontakt os",
                   contact_subtitle: "Vi vender tilbage inden for 24 timer",
                   form_name: "Navn",
@@ -542,8 +546,6 @@
                   form_error_email: "Indtast venligst en gyldig e-mailadresse.",
                   form_error_send: "Der opstod en fejl. Prøv venligst igen.",
                   contact_direct: "Eller kontakt os direkte:",
-
-                  // Footer
                   footer_description: "Din kilde til indsigt i krydsfeltet
   mellem jura og teknologi. Vi gør det komplekse forståeligt for
   professionelle.",
@@ -556,14 +558,11 @@
                   footer_terms: "Betingelser"
               },
               en: {
-                  // Navigation
                   nav_articles: "Media",
                   nav_courses: "Academy",
                   nav_about: "About",
                   nav_contact: "Contact",
                   language_label: "Language",
-
-                  // Hero
                   hero_title_1: "Clarity in a",
                   hero_title_2: "complex",
                   hero_title_3: "market.",
@@ -571,16 +570,12 @@
   technology. Gain insights that make a difference.",
                   hero_cta_articles: "Read articles",
                   hero_cta_courses: "View courses",
-
-                  // Articles
                   articles_title: "News & Analysis",
                   articles_subtitle: "The latest insights in tech law",
                   read_article: "Read article",
                   back_to_articles: "Back to articles",
                   loading: "Loading...",
                   no_articles: "No articles found.",
-
-                  // Courses
                   courses_title: "Academy",
                   courses_subtitle: "Courses and education in tech law",
                   view_course: "View course",
@@ -589,8 +584,6 @@
                   enroll_btn: "Enroll now",
                   no_courses: "No courses found.",
                   no_description: "No description available.",
-
-                  // About
                   about_title: "About KODEKS.TECH",
                   about_subtitle: "Our mission and vision",
                   about_mission_title: "Our Mission",
@@ -613,8 +606,6 @@
                   expertise_2: "AI & Machine Learning",
                   expertise_3: "IT Contracts",
                   expertise_4: "Digital Compliance",
-
-                  // Contact
                   contact_title: "Contact us",
                   contact_subtitle: "We'll get back to you within 24 hours",
                   form_name: "Name",
@@ -633,8 +624,6 @@
                   form_error_email: "Please enter a valid email address.",
                   form_error_send: "An error occurred. Please try again.",
                   contact_direct: "Or contact us directly:",
-
-                  // Footer
                   footer_description: "Your source for insights at the
   intersection of law and technology. We make the complex understandable for
   professionals.",
@@ -648,41 +637,34 @@
           };
 
           // ==================== GLOBAL STATE ====================
-          let currentLang = 'da';
-          let localArticles = [];
-          let localCourses = [];
+          var currentLang = 'da';
+          var localArticles = [];
+          var localCourses = [];
 
           // ==================== LANGUAGE FUNCTIONS ====================
           function setLanguage(lang) {
               currentLang = lang;
               document.documentElement.lang = lang;
 
-              // Update language toggle buttons
-              document.querySelectorAll('.lang-btn,
-  .lang-btn-mobile').forEach(btn => {
-                  const btnLang = btn.dataset.lang ||
-  btn.textContent.toLowerCase();
-                  btn.classList.toggle('active', btnLang === lang);
-                  if (btn.classList.contains('lang-btn-mobile')) {
-                      btn.style.backgroundColor = btnLang === lang ? '#EAB308' :
-   '';
-                      btn.style.color = btnLang === lang ? 'white' : '';
-                  }
-              });
+              // Update desktop language buttons
               document.getElementById('lang-da').classList.toggle('active', lang
    === 'da');
               document.getElementById('lang-en').classList.toggle('active', lang
    === 'en');
 
+              // Update mobile language buttons
+
+  document.querySelectorAll('.lang-btn-mobile').forEach(function(btn) {
+                  var btnLang = btn.getAttribute('data-lang');
+                  btn.style.backgroundColor = btnLang === lang ? '#EAB308' : '';
+                  btn.style.color = btnLang === lang ? 'white' : '';
+              });
+
               // Update all static text
-              document.querySelectorAll('[data-i18n]').forEach(el => {
-                  const key = el.dataset.i18n;
+              document.querySelectorAll('[data-i18n]').forEach(function(el) {
+                  var key = el.getAttribute('data-i18n');
                   if (translations[lang][key]) {
-                      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                          el.placeholder = translations[lang][key];
-                      } else {
-                          el.textContent = translations[lang][key];
-                      }
+                      el.textContent = translations[lang][key];
                   }
               });
 
@@ -698,8 +680,8 @@
           }
 
           function updateSelectOptions() {
-              const select = document.getElementById('form-subject');
-              if (select) {
+              var select = document.getElementById('form-subject');
+              if (select && select.options.length >= 5) {
                   select.options[0].textContent =
   translations[currentLang].form_subject_select;
                   select.options[1].textContent =
@@ -718,278 +700,310 @@
   || key;
           }
 
-          // ==================== NAVIGATION FUNCTIONS ====================
-          function navigateTo(id) {
-              document.querySelectorAll('.page-section').forEach(s =>
-  s.classList.remove('active'));
-              const section = document.getElementById(id);
-              if (section) {
-                  section.classList.add('active');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-          }
-
-          function toggleMobileMenu() {
-              const menu = document.getElementById('mobile-menu');
-              const menuIcon = document.getElementById('menu-icon');
-              const closeIcon = document.getElementById('close-icon');
-
-              menu.classList.toggle('open');
-              menuIcon.classList.toggle('hidden');
-              closeIcon.classList.toggle('hidden');
-          }
-
           // ==================== DATA LOADING ====================
           async function loadData() {
-              // Load Articles
-              const { data: articles, error: artErr } = await _supabase
-                  .from('articles')
-                  .select('*')
-                  .order('created_at', { ascending: false });
-
-              if (articles) {
-                  localArticles = articles;
-                  renderArticles();
-              } else {
-                  document.getElementById('article-list').innerHTML = `<p
-  class="text-slate-500">${t('no_articles')}</p>`;
+              if (!_supabase) {
+                  document.getElementById('article-list').innerHTML = '<p
+  class="text-slate-500 col-span-2">' + t('no_articles') + '</p>';
+                  document.getElementById('course-list').innerHTML = '<p
+  class="text-slate-500 col-span-2">' + t('no_courses') + '</p>';
+                  return;
               }
 
-              // Load Courses
-              const { data: courses, error: courErr } = await _supabase
-                  .from('courses')
-                  .select('*')
-                  .order('created_at', { ascending: false });
+              try {
+                  // Load Articles
+                  var articlesResponse = await
+  _supabase.from('articles').select('*').order('created_at', { ascending: false
+  });
+                  if (articlesResponse.data) {
+                      localArticles = articlesResponse.data;
+                      renderArticles();
+                  } else {
+                      document.getElementById('article-list').innerHTML = '<p
+  class="text-slate-500 col-span-2">' + t('no_articles') + '</p>';
+                  }
 
-              if (courses) {
-                  localCourses = courses;
-                  renderCourses();
-              } else {
-                  document.getElementById('course-list').innerHTML = `<p
-  class="text-slate-500">${t('no_courses')}</p>`;
+                  // Load Courses
+                  var coursesResponse = await
+  _supabase.from('courses').select('*').order('created_at', { ascending: false
+  });
+                  if (coursesResponse.data) {
+                      localCourses = coursesResponse.data;
+                      renderCourses();
+                  } else {
+                      document.getElementById('course-list').innerHTML = '<p
+  class="text-slate-500 col-span-2">' + t('no_courses') + '</p>';
+                  }
+              } catch (e) {
+                  console.error('Data load error:', e);
+                  document.getElementById('article-list').innerHTML = '<p
+  class="text-slate-500 col-span-2">' + t('no_articles') + '</p>';
+                  document.getElementById('course-list').innerHTML = '<p
+  class="text-slate-500 col-span-2">' + t('no_courses') + '</p>';
               }
           }
 
-          // ==================== RENDER FUNCTIONS ====================
+          // ==================== HELPER FUNCTIONS ====================
           function getLocalizedField(item, field) {
-              const localizedField = `${field}_${currentLang}`;
-              const fallbackField = `${field}_da`;
+              var localizedField = field + '_' + currentLang;
+              var fallbackField = field + '_da';
               return item[localizedField] || item[fallbackField] || item[field]
   || '';
           }
 
+          function formatDate(dateStr) {
+              if (!dateStr) return '';
+              var date = new Date(dateStr);
+              return date.toLocaleDateString(currentLang === 'da' ? 'da-DK' :
+  'en-US');
+          }
+
+          // ==================== RENDER FUNCTIONS ====================
           function renderArticles() {
-              const list = document.getElementById('article-list');
-              if (!localArticles.length) {
-                  list.innerHTML = `<p class="text-slate-500
-  col-span-2">${t('no_articles')}</p>`;
+              var list = document.getElementById('article-list');
+              if (!localArticles || !localArticles.length) {
+                  list.innerHTML = '<p class="text-slate-500 col-span-2">' +
+  t('no_articles') + '</p>';
                   return;
               }
 
-              list.innerHTML = localArticles.map(art => {
-                  const title = getLocalizedField(art, 'title');
-                  const excerpt = getLocalizedField(art, 'excerpt');
-                  const category = getLocalizedField(art, 'category');
-                  const imageUrl = art.image_url || 'https://images.unsplash.com
-  /photo-1450101499163-c8848c66ca85?w=600&h=400&fit=crop';
-                  const date = art.date || new
-  Date(art.created_at).toLocaleDateString(currentLang === 'da' ? 'da-DK' :
-  'en-US');
+              var html = '';
+              localArticles.forEach(function(art) {
+                  var title = getLocalizedField(art, 'title');
+                  var excerpt = getLocalizedField(art, 'excerpt');
+                  var category = getLocalizedField(art, 'category');
+                  var imageUrl = art.image_url || 'https://images.unsplash.com/p
+  hoto-1450101499163-c8848c66ca85?w=600&h=400&fit=crop';
+                  var date = art.date || formatDate(art.created_at);
 
-                  return `
-                      <div onclick="openArticle(${art.id})" class="card-hover
-  group cursor-pointer rounded-2xl border border-slate-100 overflow-hidden
-  bg-white">
-                          <div class="relative h-48 overflow-hidden">
-                              <img src="${imageUrl}" alt="${title}"
+                  html += '<div onclick="openArticle(' + art.id + ')"
+  class="card-hover group cursor-pointer rounded-2xl border border-slate-100
+  overflow-hidden bg-white">' +
+                      '<div class="relative h-48 overflow-hidden">' +
+                          '<img src="' + imageUrl + '" alt="' + title + '"
   class="w-full h-full object-cover transition-transform duration-500
-  group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-14
-  50101499163-c8848c66ca85?w=600&h=400&fit=crop'">
-                              <div class="absolute top-4 left-4">
-                                  <span class="text-[10px] font-bold bg-white/90
-   backdrop-blur-sm text-slate-700 px-3 py-1 rounded-full
-  uppercase">${category}</span>
-                              </div>
-                          </div>
-                          <div class="p-6">
-                              <p class="text-xs text-slate-400 mb-2">${date}</p>
-                              <h3 class="text-xl font-bold mb-3
-  group-hover:text-brand-yellow transition">${title}</h3>
-                              <p class="text-slate-600 text-sm mb-4
-  line-clamp-2">${excerpt}</p>
-                              <span class="text-slate-900 font-bold text-sm
-  inline-flex items-center gap-1">
-                                  ${t('read_article')} <span
-  class="transition-transform group-hover:translate-x-1">→</span>
-                              </span>
-                          </div>
-                      </div>
-                  `;
-              }).join('');
+  group-hover:scale-105" onerror="this.src=\'https://images.unsplash.com/photo-1
+  450101499163-c8848c66ca85?w=600&h=400&fit=crop\'">' +
+                          '<div class="absolute top-4 left-4">' +
+                              '<span class="text-[10px] font-bold bg-white/90
+  backdrop-blur-sm text-slate-700 px-3 py-1 rounded-full uppercase">' + category
+   + '</span>' +
+                          '</div>' +
+                      '</div>' +
+                      '<div class="p-6">' +
+                          '<p class="text-xs text-slate-400 mb-2">' + date +
+  '</p>' +
+                          '<h3 class="text-xl font-bold mb-3
+  group-hover:text-brand-yellow transition">' + title + '</h3>' +
+                          '<p class="text-slate-600 text-sm mb-4 line-clamp-2">'
+   + excerpt + '</p>' +
+                          '<span class="text-slate-900 font-bold text-sm
+  inline-flex items-center gap-1">' +
+                              t('read_article') + ' <span
+  class="transition-transform group-hover:translate-x-1">→</span>' +
+                          '</span>' +
+                      '</div>' +
+                  '</div>';
+              });
+              list.innerHTML = html;
           }
 
           function renderCourses() {
-              const list = document.getElementById('course-list');
-              if (!localCourses.length) {
-                  list.innerHTML = `<p class="text-slate-500
-  col-span-2">${t('no_courses')}</p>`;
+              var list = document.getElementById('course-list');
+              if (!localCourses || !localCourses.length) {
+                  list.innerHTML = '<p class="text-slate-500 col-span-2">' +
+  t('no_courses') + '</p>';
                   return;
               }
 
-              list.innerHTML = localCourses.map(c => {
-                  const title = getLocalizedField(c, 'title');
-                  const description = getLocalizedField(c, 'description');
-                  const type = getLocalizedField(c, 'type');
-                  const price = c.price || 'Kontakt os';
+              var html = '';
+              localCourses.forEach(function(c) {
+                  var title = getLocalizedField(c, 'title');
+                  var description = getLocalizedField(c, 'description');
+                  var type = getLocalizedField(c, 'type');
+                  var price = c.price || 'Kontakt os';
+                  var imageUrl = c.image_url || '';
 
-                  return `
-                      <div onclick="openCourse(${c.id})" class="card-hover group
-   p-8 border border-slate-100 rounded-2xl bg-white cursor-pointer">
-                          <div class="flex flex-col gap-4">
-                              <div>
-                                  <span class="text-[10px] font-bold
-  bg-slate-100 text-slate-500 px-3 py-1 rounded-full uppercase">${type}</span>
-                              </div>
-                              <h3 class="text-2xl font-bold
-  group-hover:text-brand-yellow transition">${title}</h3>
-                              <p class="text-slate-500 text-sm
-  line-clamp-2">${description || t('no_description')}</p>
-                              <div class="flex justify-between items-center pt-4
-   border-t border-slate-100">
-                                  <div>
-                                      <p class="text-xs text-slate-400
-  uppercase">${t('price_label')}</p>
-                                      <p class="text-lg font-bold">${price}</p>
-                                  </div>
-                                  <span class="text-brand-yellow font-bold
-  inline-flex items-center gap-1">
-                                      ${t('view_course')} <span
-  class="transition-transform group-hover:translate-x-1">→</span>
-                                  </span>
-                              </div>
-                          </div>
-                      </div>
-                  `;
-              }).join('');
+                  html += '<div onclick="openCourse(' + c.id + ')"
+  class="card-hover group p-8 border border-slate-100 rounded-2xl bg-white
+  cursor-pointer">';
+
+                  if (imageUrl) {
+                      html += '<img src="' + imageUrl + '" alt="' + title + '"
+  class="w-full h-40 object-cover rounded-xl mb-6"
+  onerror="this.style.display=\'none\'">';
+                  }
+
+                  html += '<div class="flex flex-col gap-4">' +
+                          '<div>' +
+                              '<span class="text-[10px] font-bold bg-slate-100
+  text-slate-500 px-3 py-1 rounded-full uppercase">' + type + '</span>' +
+                          '</div>' +
+                          '<h3 class="text-2xl font-bold
+  group-hover:text-brand-yellow transition">' + title + '</h3>' +
+                          '<p class="text-slate-500 text-sm line-clamp-2">' +
+  (description || t('no_description')) + '</p>' +
+                          '<div class="flex justify-between items-center pt-4
+  border-t border-slate-100">' +
+                              '<div>' +
+                                  '<p class="text-xs text-slate-400 uppercase">'
+   + t('price_label') + '</p>' +
+                                  '<p class="text-lg font-bold">' + price +
+  '</p>' +
+                              '</div>' +
+                              '<span class="text-brand-yellow font-bold
+  inline-flex items-center gap-1">' +
+                                  t('view_course') + ' <span
+  class="transition-transform group-hover:translate-x-1">→</span>' +
+                              '</span>' +
+                          '</div>' +
+                      '</div>' +
+                  '</div>';
+              });
+              list.innerHTML = html;
           }
 
           // ==================== DETAIL VIEWS ====================
           function openArticle(id) {
-              const art = localArticles.find(a => a.id === id);
+              var art = localArticles.find(function(a) { return a.id === id; });
               if (!art) return;
 
-              const title = getLocalizedField(art, 'title');
-              const content = getLocalizedField(art, 'content');
-              const category = getLocalizedField(art, 'category');
-              const imageUrl = art.image_url || 'https://images.unsplash.com/pho
-  to-1450101499163-c8848c66ca85?w=1200&h=600&fit=crop';
-              const date = art.date || new
-  Date(art.created_at).toLocaleDateString(currentLang === 'da' ? 'da-DK' :
-  'en-US');
+              var title = getLocalizedField(art, 'title');
+              var content = getLocalizedField(art, 'content');
+              var category = getLocalizedField(art, 'category');
+              var imageUrl = art.image_url || 'https://images.unsplash.com/photo
+  -1450101499163-c8848c66ca85?w=1200&h=600&fit=crop';
+              var date = art.date || formatDate(art.created_at);
 
-              document.getElementById('article-content').innerHTML = `
-                  <div class="mb-8">
-                      <span class="text-xs font-bold text-brand-yellow
-  uppercase">${category}</span>
-                      <span class="text-xs text-slate-400 ml-2">${date}</span>
-                  </div>
-                  <h1 class="text-4xl md:text-5xl font-bold mb-8
-  leading-tight">${title}</h1>
-                  <img src="${imageUrl}" alt="${title}" class="w-full h-64
-  md:h-80 object-cover rounded-2xl mb-10" onerror="this.src='https://images.unsp
-  lash.com/photo-1450101499163-c8848c66ca85?w=1200&h=600&fit=crop'">
-                  <div class="prose prose-lg text-slate-600
-  leading-relaxed">${content}</div>
-              `;
+              document.getElementById('article-content').innerHTML =
+                  '<div class="mb-8">' +
+                      '<span class="text-xs font-bold text-brand-yellow
+  uppercase">' + category + '</span>' +
+                      '<span class="text-xs text-slate-400 ml-2">' + date +
+  '</span>' +
+                  '</div>' +
+                  '<h1 class="text-4xl md:text-5xl font-bold mb-8
+  leading-tight">' + title + '</h1>' +
+                  '<img src="' + imageUrl + '" alt="' + title + '" class="w-full
+   h-64 md:h-80 object-cover rounded-2xl mb-10" onerror="this.src=\'https://imag
+  es.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&h=600&fit=crop\'">' +
+                  '<div class="prose prose-lg text-slate-600 leading-relaxed">'
+  + content + '</div>';
+
               navigateTo('article-detail');
           }
 
           function openCourse(id) {
-              const c = localCourses.find(item => item.id === id);
+              var c = localCourses.find(function(item) { return item.id === id;
+  });
               if (!c) return;
 
-              const title = getLocalizedField(c, 'title');
-              const description = getLocalizedField(c, 'description') ||
+              var title = getLocalizedField(c, 'title');
+              var description = getLocalizedField(c, 'description') ||
   t('no_description');
-              const type = getLocalizedField(c, 'type');
-              const price = c.price || 'Kontakt os';
+              var type = getLocalizedField(c, 'type');
+              var price = c.price || 'Kontakt os';
+              var imageUrl = c.image_url || '';
 
-              document.getElementById('course-content').innerHTML = `
-                  <span class="text-xs font-bold bg-slate-100 text-slate-500
-  px-3 py-1 rounded-full uppercase">${type}</span>
-                  <h1 class="text-4xl font-bold my-6">${title}</h1>
-                  <div class="prose prose-lg text-slate-600 mb-10
-  leading-relaxed">${description}</div>
-                  <div class="p-8 bg-slate-50 rounded-2xl border
-  border-slate-200">
-                      <p class="text-xs text-slate-400 uppercase
-  mb-1">${t('price_label')}</p>
-                      <div class="text-3xl font-bold mb-6">${price}</div>
-                      <button onclick="navigateTo('contact')" class="px-8 py-4
-  bg-brand-yellow text-white rounded-xl font-bold hover:bg-brand-yellowHover
-  transition w-full md:w-auto">
-                          ${t('enroll_btn')}
-                      </button>
-                  </div>
-              `;
+              var imageHtml = imageUrl ? '<img src="' + imageUrl + '" alt="' +
+  title + '" class="w-full h-64 object-cover rounded-2xl mb-8"
+  onerror="this.style.display=\'none\'">' : '';
+
+              document.getElementById('course-content').innerHTML =
+                  '<span class="text-xs font-bold bg-slate-100 text-slate-500
+  px-3 py-1 rounded-full uppercase">' + type + '</span>' +
+                  '<h1 class="text-4xl font-bold my-6">' + title + '</h1>' +
+                  imageHtml +
+                  '<div class="prose prose-lg text-slate-600 mb-10
+  leading-relaxed">' + description + '</div>' +
+                  '<div class="p-8 bg-slate-50 rounded-2xl border
+  border-slate-200">' +
+                      '<p class="text-xs text-slate-400 uppercase mb-1">' +
+  t('price_label') + '</p>' +
+                      '<div class="text-3xl font-bold mb-6">' + price + '</div>'
+   +
+                      '<button onclick="navigateTo(\'contact\')" class="px-8
+  py-4 bg-brand-yellow text-white rounded-xl font-bold
+  hover:bg-brand-yellowHover transition w-full md:w-auto">' +
+                          t('enroll_btn') +
+                      '</button>' +
+                  '</div>';
+
               navigateTo('course-detail');
           }
 
           // ==================== CONTACT FORM ====================
-          document.getElementById('contact-form').addEventListener('submit',
-  async function(e) {
-              e.preventDefault();
+          document.addEventListener('DOMContentLoaded', function() {
+              var form = document.getElementById('contact-form');
+              if (form) {
+                  form.addEventListener('submit', async function(e) {
+                      e.preventDefault();
 
-              const name = document.getElementById('form-name').value.trim();
-              const email = document.getElementById('form-email').value.trim();
-              const subject = document.getElementById('form-subject').value;
-              const message =
+                      var name =
+  document.getElementById('form-name').value.trim();
+                      var email =
+  document.getElementById('form-email').value.trim();
+                      var subject =
+  document.getElementById('form-subject').value;
+                      var message =
   document.getElementById('form-message').value.trim();
 
-              const errorEl = document.getElementById('form-error');
-              const successEl = document.getElementById('form-success');
+                      var errorEl = document.getElementById('form-error');
+                      var successEl = document.getElementById('form-success');
 
-              // Reset messages
-              errorEl.classList.add('hidden');
-              successEl.classList.add('hidden');
+                      // Reset messages
+                      errorEl.classList.add('hidden');
+                      successEl.classList.add('hidden');
 
-              // Validation
-              if (!name || !email || !subject || !message) {
-                  errorEl.textContent = t('form_error_fill');
-                  errorEl.classList.remove('hidden');
-                  return;
+                      // Validation
+                      if (!name || !email || !subject || !message) {
+                          errorEl.textContent = t('form_error_fill');
+                          errorEl.classList.remove('hidden');
+                          return;
+                      }
+
+                      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                      if (!emailRegex.test(email)) {
+                          errorEl.textContent = t('form_error_email');
+                          errorEl.classList.remove('hidden');
+                          return;
+                      }
+
+                      if (!_supabase) {
+                          errorEl.textContent = t('form_error_send');
+                          errorEl.classList.remove('hidden');
+                          return;
+                      }
+
+                      // Submit to Supabase
+                      try {
+                          var response = await _supabase
+                              .from('contact_messages')
+                              .insert([{ name: name, email: email, subject:
+  subject, message: message, language: currentLang }]);
+
+                          if (response.error) {
+                              errorEl.textContent = t('form_error_send');
+                              errorEl.classList.remove('hidden');
+                              console.error('Contact form error:',
+  response.error);
+                              return;
+                          }
+
+                          // Success
+                          successEl.textContent = t('form_success');
+                          successEl.classList.remove('hidden');
+                          form.reset();
+                      } catch (err) {
+                          errorEl.textContent = t('form_error_send');
+                          errorEl.classList.remove('hidden');
+                          console.error('Contact form error:', err);
+                      }
+                  });
               }
 
-              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-              if (!emailRegex.test(email)) {
-                  errorEl.textContent = t('form_error_email');
-                  errorEl.classList.remove('hidden');
-                  return;
-              }
-
-              // Submit to Supabase
-              const { error } = await _supabase
-                  .from('contact_messages')
-                  .insert([{ name, email, subject, message, language:
-  currentLang }]);
-
-              if (error) {
-                  errorEl.textContent = t('form_error_send');
-                  errorEl.classList.remove('hidden');
-                  console.error('Contact form error:', error);
-                  return;
-              }
-
-              // Success
-              successEl.textContent = t('form_success');
-              successEl.classList.remove('hidden');
-              this.reset();
-          });
-
-          // ==================== INITIALIZATION ====================
-          document.addEventListener('DOMContentLoaded', function() {
               // Load saved language preference
-              const savedLang = localStorage.getItem('kodeks_lang');
+              var savedLang = localStorage.getItem('kodeks_lang');
               if (savedLang && (savedLang === 'da' || savedLang === 'en')) {
                   setLanguage(savedLang);
               }
