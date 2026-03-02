@@ -1,975 +1,418 @@
-  <!DOCTYPE html>                                                               
-  <html lang="da">                                                            
+  <!DOCTYPE html>
+  <html lang="da">
   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>KODEKS.TECH | Jura og Teknologi</title>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wgh
-  t@400;500;600;700&display=swap" rel="stylesheet">
-      <script
-  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-      <script src="https://cdn.tailwindcss.com"></script>
-      <script>
-          tailwind.config = {
-              theme: {
-                  extend: {
-                      fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
-                      colors: { brand: { yellow: '#EAB308', yellowHover:
-  '#CA8A04' } }
-                  }
-              }
-          };
-      </script>
-      <style>
-          body { font-family: 'Plus Jakarta Sans', sans-serif; }
-          .page-section { display: none; }
-          .page-section.active { display: block; }
-          .fade-in { animation: fadeIn 0.5s ease-out forwards; }
-          @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); } }
-          .yellow-highlight { position: relative; z-index: 1; display:
-  inline-block; }
-          .yellow-highlight::after { content: ''; position: absolute; bottom:
-  6px; left: -2px; right: -2px; height: 30%; background-color: #EAB308; opacity:
-   0.25; z-index: -1; border-radius: 2px; }
-          .mobile-menu { transform: translateX(100%); transition: transform 0.3s
-   ease-in-out; }
-          .mobile-menu.open { transform: translateX(0); }
-          .lang-btn.active { background-color: #EAB308; color: white; }
-          .form-input:focus { outline: none; border-color: #EAB308; box-shadow:
-  0 0 0 3px rgba(234, 179, 8, 0.1); }
-          .card-hover { transition: all 0.3s ease; }
-          .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px
-  40px rgba(0,0,0,0.08); }
-      </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KODEKS.TECH</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@40
+  0;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+  body{font-family:'Plus Jakarta Sans',sans-serif}
+  .page-section{display:none}
+  .page-section.active{display:block}
+  .lang-btn.active{background-color:#EAB308;color:white}
+  .mobile-menu{transform:translateX(100%);transition:transform 0.3s}
+  .mobile-menu.open{transform:translateX(0)}
+  </style>
   </head>
   <body class="bg-white text-slate-900">
-
-  <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b
-  border-slate-100 h-20">
-      <div class="max-w-5xl mx-auto px-6 h-full flex justify-between
-  items-center">
-          <a href="#" id="logo-link" class="text-xl font-bold
-  tracking-tight">KODEKS<span class="text-brand-yellow">.</span>TECH</a>
-
-          <div class="hidden md:flex items-center space-x-8 text-xs font-bold
-  uppercase tracking-wider text-slate-500">
-              <button id="nav-articles" class="hover:text-brand-yellow
-  transition" data-i18n="nav_articles">Medie</button>
-              <button id="nav-courses" class="hover:text-brand-yellow
-  transition" data-i18n="nav_courses">Akademi</button>
-              <button id="nav-about" class="hover:text-brand-yellow transition"
-  data-i18n="nav_about">Om os</button>
-              <button id="nav-contact" class="px-5 py-2.5 bg-slate-900
-  text-white rounded-lg hover:bg-slate-800 transition"
-  data-i18n="nav_contact">Kontakt</button>
-
-              <div class="flex border border-slate-200 rounded-lg
-  overflow-hidden ml-4">
-                  <button id="lang-da" class="lang-btn px-3 py-1.5 text-[10px]
-  font-bold active">DA</button>
-                  <button id="lang-en" class="lang-btn px-3 py-1.5 text-[10px]
-  font-bold">EN</button>
-              </div>
-          </div>
-
-          <button id="mobile-menu-btn" class="md:hidden p-2">
-              <svg id="menu-icon" class="w-6 h-6" fill="none"
-  stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-  stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-              <svg id="close-icon" class="w-6 h-6 hidden" fill="none"
-  stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-  stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-          </button>
-      </div>
-
-      <div id="mobile-menu" class="mobile-menu fixed top-20 right-0 w-72
-  h-screen bg-white border-l border-slate-100 shadow-xl p-8 md:hidden">
-          <div class="flex flex-col space-y-6 text-sm font-bold uppercase
-  tracking-wider">
-              <button id="mobile-nav-articles" class="text-left
-  hover:text-brand-yellow transition" data-i18n="nav_articles">Medie</button>
-              <button id="mobile-nav-courses" class="text-left
-  hover:text-brand-yellow transition" data-i18n="nav_courses">Akademi</button>
-              <button id="mobile-nav-about" class="text-left
-  hover:text-brand-yellow transition" data-i18n="nav_about">Om os</button>
-              <button id="mobile-nav-contact" class="text-left px-5 py-3
-  bg-slate-900 text-white rounded-lg text-center"
-  data-i18n="nav_contact">Kontakt</button>
-
-              <div class="pt-6 border-t border-slate-100">
-                  <p class="text-[10px] text-slate-400 mb-3"
-  data-i18n="language_label">Sprog</p>
-                  <div class="flex border border-slate-200 rounded-lg
-  overflow-hidden w-fit">
-                      <button id="mobile-lang-da" class="lang-btn-mobile px-4
-  py-2 text-xs font-bold" data-lang="da">DA</button>
-                      <button id="mobile-lang-en" class="lang-btn-mobile px-4
-  py-2 text-xs font-bold" data-lang="en">EN</button>
-                  </div>
-              </div>
-          </div>
-      </div>
+  <nav class="fixed top-0 w-full z-50 bg-white border-b border-slate-100 h-20">
+  <div class="max-w-5xl mx-auto px-6 h-full flex justify-between items-center">
+  <a href="#" id="logo-link" class="text-xl font-bold">KODEKS<span
+  class="text-yellow-500">.</span>TECH</a>
+  <div class="hidden md:flex items-center space-x-8 text-xs font-bold uppercase
+  text-slate-500">
+  <button id="nav-articles" class="hover:text-yellow-500">Medie</button>
+  <button id="nav-courses" class="hover:text-yellow-500">Akademi</button>
+  <button id="nav-about" class="hover:text-yellow-500">Om os</button>
+  <button id="nav-contact" class="px-5 py-2 bg-slate-900 text-white
+  rounded-lg">Kontakt</button>
+  <div class="flex border border-slate-200 rounded-lg overflow-hidden ml-4">
+  <button id="lang-da" class="lang-btn px-3 py-1 text-xs font-bold
+  active">DA</button>
+  <button id="lang-en" class="lang-btn px-3 py-1 text-xs font-bold">EN</button>
+  </div>
+  </div>
+  <button id="mobile-menu-btn" class="md:hidden p-2">
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4
+  6h16M4 12h16M4 18h16"></path>
+  </svg>
+  </button>
+  </div>
+  <div id="mobile-menu" class="mobile-menu fixed top-20 right-0 w-64 h-screen
+  bg-white border-l shadow-xl p-6 md:hidden">
+  <div class="flex flex-col space-y-4">
+  <button id="mobile-nav-articles" class="text-left font-bold">Medie</button>
+  <button id="mobile-nav-courses" class="text-left font-bold">Akademi</button>
+  <button id="mobile-nav-about" class="text-left font-bold">Om os</button>
+  <button id="mobile-nav-contact" class="text-left font-bold">Kontakt</button>
+  <div class="pt-4 border-t flex gap-2">
+  <button id="mobile-lang-da" class="px-3 py-1 bg-yellow-500 text-white rounded
+  text-sm">DA</button>
+  <button id="mobile-lang-en" class="px-3 py-1 bg-gray-200 rounded
+  text-sm">EN</button>
+  </div>
+  </div>
+  </div>
   </nav>
-
-  <main class="pt-32">
-
-      <section id="home" class="page-section active fade-in px-6">
-          <div class="max-w-5xl mx-auto py-20">
-              <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-8">
-                  <span data-i18n="hero_title_1">Klarhed i et</span> <br>
-                  <span class="yellow-highlight italic"
-  data-i18n="hero_title_2">komplekst</span> <span
-  data-i18n="hero_title_3">marked.</span>
-              </h1>
-              <p class="text-xl text-slate-600 max-w-2xl mb-10 leading-relaxed"
-  data-i18n="hero_subtitle">
-                  Vi specialiserer os i krydsfeltet mellem jura og teknologi. Få
-   indsigt, der gør en forskel.
-              </p>
-              <div class="flex flex-col sm:flex-row gap-4">
-                  <button id="hero-articles-btn" class="px-8 py-4
-  bg-brand-yellow text-white font-bold rounded-xl shadow-lg
-  hover:bg-brand-yellowHover transition" data-i18n="hero_cta_articles">Læs
-  artikler</button>
-                  <button id="hero-courses-btn" class="px-8 py-4 bg-white
-  text-slate-900 font-bold rounded-xl border-2 border-slate-200
-  hover:border-brand-yellow transition" data-i18n="hero_cta_courses">Se
-  kurser</button>
-              </div>
-          </div>
-      </section>
-
-      <section id="articles" class="page-section fade-in px-6">
-          <div class="max-w-5xl mx-auto py-20">
-              <h2 class="text-4xl font-bold mb-4"
-  data-i18n="articles_title">Nyheder & Analyser</h2>
-              <p class="text-slate-500 mb-12" data-i18n="articles_subtitle">De
-  seneste indsigter inden for tech-jura</p>
-              <div id="article-list" class="grid grid-cols-1 md:grid-cols-2
-  gap-8">
-                  <p data-i18n="loading">Indlæser artikler...</p>
-              </div>
-          </div>
-      </section>
-
-      <section id="courses" class="page-section fade-in px-6">
-          <div class="max-w-5xl mx-auto py-20">
-              <h2 class="text-4xl font-bold mb-4"
-  data-i18n="courses_title">Akademi</h2>
-              <p class="text-slate-500 mb-12"
-  data-i18n="courses_subtitle">Kurser og uddannelse inden for tech-jura</p>
-              <div id="course-list" class="grid grid-cols-1 md:grid-cols-2
-  gap-8">
-                  <p data-i18n="loading">Indlæser kurser...</p>
-              </div>
-          </div>
-      </section>
-
-      <section id="article-detail" class="page-section fade-in px-6">
-          <div class="max-w-3xl mx-auto py-20">
-              <button id="back-to-articles" class="text-slate-400
-  hover:text-brand-yellow mb-8 flex items-center gap-2 transition
-  font-semibold">
-                  <span>←</span> <span data-i18n="back_to_articles">Tilbage til
-  artikler</span>
-              </button>
-              <div id="article-content"></div>
-          </div>
-      </section>
-
-      <section id="course-detail" class="page-section fade-in px-6">
-          <div class="max-w-3xl mx-auto py-20">
-              <button id="back-to-courses" class="text-slate-400
-  hover:text-brand-yellow mb-8 flex items-center gap-2 transition
-  font-semibold">
-                  <span>←</span> <span data-i18n="back_to_courses">Tilbage til
-  kurser</span>
-              </button>
-              <div id="course-content"></div>
-          </div>
-      </section>
-
-      <section id="about" class="page-section fade-in px-6">
-          <div class="max-w-4xl mx-auto py-20">
-              <h2 class="text-4xl font-bold mb-4" data-i18n="about_title">Om
-  KODEKS.TECH</h2>
-              <p class="text-slate-500 mb-12" data-i18n="about_subtitle">Vores
-  mission og vision</p>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-                  <div>
-                      <h3 class="text-2xl font-bold mb-4"
-  data-i18n="about_mission_title">Vores Mission</h3>
-                      <p class="text-slate-600 leading-relaxed mb-6"
-  data-i18n="about_mission_text">
-                          KODEKS.TECH blev grundlagt med én klar vision: at
-  bygge bro mellem juraens kompleksitet og teknologiens muligheder. Vi tror på,
-  at fremtidens juridiske rådgivning kræver dyb forståelse for begge verdener.
-                      </p>
-                      <p class="text-slate-600 leading-relaxed"
-  data-i18n="about_mission_text_2">
-                          Vores team af specialister kombinerer juridisk
-  ekspertise med teknisk indsigt for at levere rådgivning, der er både praktisk
-  anvendelig og fremtidssikret.
-                      </p>
-                  </div>
-                  <div>
-                      <h3 class="text-2xl font-bold mb-4"
-  data-i18n="about_values_title">Vores Værdier</h3>
-                      <ul class="space-y-4">
-                          <li class="flex items-start gap-3">
-                              <span class="text-brand-yellow
-  font-bold">01</span>
-                              <div>
-                                  <span class="font-bold"
-  data-i18n="about_value_1_title">Klarhed</span>
-                                  <p class="text-slate-500 text-sm"
-  data-i18n="about_value_1_text">Vi gør det komplekse forståeligt</p>
-                              </div>
-                          </li>
-                          <li class="flex items-start gap-3">
-                              <span class="text-brand-yellow
-  font-bold">02</span>
-                              <div>
-                                  <span class="font-bold"
-  data-i18n="about_value_2_title">Innovation</span>
-                                  <p class="text-slate-500 text-sm"
-  data-i18n="about_value_2_text">Vi omfavner ny teknologi</p>
-                              </div>
-                          </li>
-                          <li class="flex items-start gap-3">
-                              <span class="text-brand-yellow
-  font-bold">03</span>
-                              <div>
-                                  <span class="font-bold"
-  data-i18n="about_value_3_title">Integritet</span>
-                                  <p class="text-slate-500 text-sm"
-  data-i18n="about_value_3_text">Vi leverer ærlig, uafhængig rådgivning</p>
-                              </div>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-
-              <div class="bg-slate-50 rounded-3xl p-10 border border-slate-100">
-                  <h3 class="text-2xl font-bold mb-6"
-  data-i18n="about_expertise_title">Vores Ekspertiseområder</h3>
-                  <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                      <div class="text-center p-4">
-                          <div class="text-3xl mb-2">🔒</div>
-                          <p class="font-semibold text-sm"
-  data-i18n="expertise_1">GDPR & Databeskyttelse</p>
-                      </div>
-                      <div class="text-center p-4">
-                          <div class="text-3xl mb-2">🤖</div>
-                          <p class="font-semibold text-sm"
-  data-i18n="expertise_2">AI & Maskinlæring</p>
-                      </div>
-                      <div class="text-center p-4">
-                          <div class="text-3xl mb-2">📜</div>
-                          <p class="font-semibold text-sm"
-  data-i18n="expertise_3">IT-kontrakter</p>
-                      </div>
-                      <div class="text-center p-4">
-                          <div class="text-3xl mb-2">⚖️</div>
-                          <p class="font-semibold text-sm"
-  data-i18n="expertise_4">Digital Compliance</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </section>
-
-      <section id="contact" class="page-section fade-in px-6">
-          <div class="max-w-2xl mx-auto py-20">
-              <div class="text-center mb-12">
-                  <h2 class="text-4xl font-bold mb-4"
-  data-i18n="contact_title">Kontakt os</h2>
-                  <p class="text-slate-500" data-i18n="contact_subtitle">Vi
-  vender tilbage inden for 24 timer</p>
-              </div>
-
-              <form id="contact-form" class="bg-slate-50 rounded-3xl p-8 md:p-12
-   border border-slate-100">
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                      <div>
-                          <label class="block text-sm font-semibold mb-2"
-  data-i18n="form_name">Navn</label>
-                          <input type="text" id="form-name" required
-  class="form-input w-full px-4 py-3 rounded-xl border border-slate-200 bg-white
-   transition">
-                      </div>
-                      <div>
-                          <label class="block text-sm font-semibold mb-2"
-  data-i18n="form_email">E-mail</label>
-                          <input type="email" id="form-email" required
-  class="form-input w-full px-4 py-3 rounded-xl border border-slate-200 bg-white
-   transition">
-                      </div>
-                  </div>
-                  <div class="mb-6">
-                      <label class="block text-sm font-semibold mb-2"
-  data-i18n="form_subject">Emne</label>
-                      <select id="form-subject" required class="form-input
-  w-full px-4 py-3 rounded-xl border border-slate-200 bg-white transition">
-                          <option value="">Vælg emne...</option>
-                          <option value="general">Generel henvendelse</option>
-                          <option value="courses">Spørgsmål om kurser</option>
-                          <option value="consulting">Rådgivning</option>
-                          <option value="partnership">Samarbejde</option>
-                      </select>
-                  </div>
-                  <div class="mb-8">
-                      <label class="block text-sm font-semibold mb-2"
-  data-i18n="form_message">Besked</label>
-                      <textarea id="form-message" rows="5" required
-  class="form-input w-full px-4 py-3 rounded-xl border border-slate-200 bg-white
-   transition resize-none"></textarea>
-                  </div>
-                  <button type="submit" class="w-full px-8 py-4 bg-brand-yellow
-  text-white font-bold rounded-xl shadow-lg hover:bg-brand-yellowHover
-  transition" data-i18n="form_submit">Send besked</button>
-
-                  <p id="form-error" class="hidden mt-4 text-red-500 text-center
-   text-sm"></p>
-                  <p id="form-success" class="hidden mt-4 text-green-600
-  text-center text-sm">Tak for din besked! Vi vender tilbage hurtigst
-  muligt.</p>
-              </form>
-
-              <div class="mt-12 text-center">
-                  <p class="text-slate-400 text-sm mb-2"
-  data-i18n="contact_direct">Eller kontakt os direkte:</p>
-                  <a href="mailto:hello@kodeks.tech" class="text-slate-900
-  font-bold hover:text-brand-yellow transition">hello@kodeks.tech</a>
-              </div>
-          </div>
-      </section>
-
+  <main class="pt-24">
+  <section id="home" class="page-section active px-6">
+  <div class="max-w-5xl mx-auto py-20">
+  <h1 class="text-5xl md:text-7xl font-bold mb-8"><span
+  data-i18n="hero1">Klarhed i et</span><br><span class="text-yellow-500 italic"
+  data-i18n="hero2">komplekst</span> <span data-i18n="hero3">marked.</span></h1>
+  <p class="text-xl text-slate-600 max-w-2xl mb-10" data-i18n="herosub">Vi
+  specialiserer os i krydsfeltet mellem jura og teknologi.</p>
+  <div class="flex gap-4">
+  <button id="hero-articles" class="px-8 py-4 bg-yellow-500 text-white font-bold
+   rounded-xl" data-i18n="heroart">Læs artikler</button>
+  <button id="hero-courses" class="px-8 py-4 border-2 border-slate-200
+  rounded-xl font-bold" data-i18n="herocrs">Se kurser</button>
+  </div>
+  </div>
+  </section>
+  <section id="articles" class="page-section px-6">
+  <div class="max-w-5xl mx-auto py-20">
+  <h2 class="text-4xl font-bold mb-4" data-i18n="arttitle">Nyheder &
+  Analyser</h2>
+  <p class="text-slate-500 mb-12" data-i18n="artsub">De seneste indsigter inden
+  for tech-jura</p>
+  <div id="article-list" class="grid grid-cols-1 md:grid-cols-2
+  gap-8"><p>Indlæser...</p></div>
+  </div>
+  </section>
+  <section id="courses" class="page-section px-6">
+  <div class="max-w-5xl mx-auto py-20">
+  <h2 class="text-4xl font-bold mb-4" data-i18n="crstitle">Akademi</h2>
+  <p class="text-slate-500 mb-12" data-i18n="crssub">Kurser inden for
+  tech-jura</p>
+  <div id="course-list" class="grid grid-cols-1 md:grid-cols-2
+  gap-8"><p>Indlæser...</p></div>
+  </div>
+  </section>
+  <section id="article-detail" class="page-section px-6">
+  <div class="max-w-3xl mx-auto py-20">
+  <button id="back-articles" class="text-slate-400 hover:text-yellow-500 mb-8
+  font-semibold"><span data-i18n="back">Tilbage</span></button>
+  <div id="article-content"></div>
+  </div>
+  </section>
+  <section id="course-detail" class="page-section px-6">
+  <div class="max-w-3xl mx-auto py-20">
+  <button id="back-courses" class="text-slate-400 hover:text-yellow-500 mb-8
+  font-semibold"><span data-i18n="back">Tilbage</span></button>
+  <div id="course-content"></div>
+  </div>
+  </section>
+  <section id="about" class="page-section px-6">
+  <div class="max-w-4xl mx-auto py-20">
+  <h2 class="text-4xl font-bold mb-4" data-i18n="abouttitle">Om KODEKS.TECH</h2>
+  <p class="text-slate-500 mb-12" data-i18n="aboutsub">Vores mission og
+  vision</p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+  <div>
+  <h3 class="text-2xl font-bold mb-4" data-i18n="mission">Vores Mission</h3>
+  <p class="text-slate-600 mb-6" data-i18n="missiontext">KODEKS.TECH bygger bro
+  mellem juraens kompleksitet og teknologiens muligheder.</p>
+  </div>
+  <div>
+  <h3 class="text-2xl font-bold mb-4" data-i18n="values">Vores Værdier</h3>
+  <ul class="space-y-3">
+  <li class="flex gap-3"><span class="text-yellow-500 font-bold">01</span><span
+  data-i18n="val1">Klarhed</span></li>
+  <li class="flex gap-3"><span class="text-yellow-500 font-bold">02</span><span
+  data-i18n="val2">Innovation</span></li>
+  <li class="flex gap-3"><span class="text-yellow-500 font-bold">03</span><span
+  data-i18n="val3">Integritet</span></li>
+  </ul>
+  </div>
+  </div>
+  </div>
+  </section>
+  <section id="contact" class="page-section px-6">
+  <div class="max-w-2xl mx-auto py-20">
+  <h2 class="text-4xl font-bold mb-4 text-center"
+  data-i18n="contacttitle">Kontakt os</h2>
+  <p class="text-slate-500 mb-12 text-center" data-i18n="contactsub">Vi vender
+  tilbage inden for 24 timer</p>
+  <form id="contact-form" class="bg-slate-50 rounded-2xl p-8 border">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+  <div>
+  <label class="block text-sm font-semibold mb-2" data-i18n="fname">Navn</label>
+  <input type="text" id="form-name" required class="w-full px-4 py-3 rounded-xl
+  border">
+  </div>
+  <div>
+  <label class="block text-sm font-semibold mb-2"
+  data-i18n="femail">E-mail</label>
+  <input type="email" id="form-email" required class="w-full px-4 py-3
+  rounded-xl border">
+  </div>
+  </div>
+  <div class="mb-6">
+  <label class="block text-sm font-semibold mb-2"
+  data-i18n="fsubject">Emne</label>
+  <select id="form-subject" required class="w-full px-4 py-3 rounded-xl border">
+  <option value="">Vælg emne...</option>
+  <option value="general">Generel henvendelse</option>
+  <option value="courses">Kurser</option>
+  <option value="consulting">Rådgivning</option>
+  </select>
+  </div>
+  <div class="mb-6">
+  <label class="block text-sm font-semibold mb-2"
+  data-i18n="fmessage">Besked</label>
+  <textarea id="form-message" rows="5" required class="w-full px-4 py-3
+  rounded-xl border"></textarea>
+  </div>
+  <button type="submit" class="w-full py-4 bg-yellow-500 text-white font-bold
+  rounded-xl" data-i18n="fsend">Send besked</button>
+  <p id="form-success" class="hidden mt-4 text-green-600 text-center">Tak for
+  din besked!</p>
+  <p id="form-error" class="hidden mt-4 text-red-500 text-center"></p>
+  </form>
+  </div>
+  </section>
   </main>
-
-  <footer class="mt-20 border-t border-slate-100 bg-slate-50 py-20 px-6">
-      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div class="col-span-1 md:col-span-2">
-              <span class="text-xl font-bold tracking-tighter">KODEKS<span
-  class="text-brand-yellow">.</span>TECH</span>
-              <p class="text-slate-500 mt-4 text-sm leading-relaxed max-w-sm"
-  data-i18n="footer_description">
-                  Din kilde til indsigt i krydsfeltet mellem jura og teknologi.
-  Vi gør det komplekse forståeligt for professionelle.
-              </p>
-          </div>
-
-          <div>
-              <h4 class="font-bold text-xs uppercase tracking-widest mb-6
-  text-slate-900" data-i18n="footer_nav">Navigation</h4>
-              <ul class="space-y-4 text-sm text-slate-600 font-medium">
-                  <li><button id="footer-articles"
-  class="hover:text-brand-yellow transition"
-  data-i18n="nav_articles">Medie</button></li>
-                  <li><button id="footer-courses" class="hover:text-brand-yellow
-   transition" data-i18n="nav_courses">Akademi</button></li>
-                  <li><button id="footer-about" class="hover:text-brand-yellow
-  transition" data-i18n="nav_about">Om os</button></li>
-                  <li><button id="footer-contact" class="hover:text-brand-yellow
-   transition" data-i18n="nav_contact">Kontakt</button></li>
-              </ul>
-          </div>
-
-          <div>
-              <h4 class="font-bold text-xs uppercase tracking-widest mb-6
-  text-slate-900" data-i18n="footer_contact_title">Kontakt</h4>
-              <ul class="space-y-4 text-sm text-slate-600">
-                  <li><a href="mailto:hello@kodeks.tech"
-  class="hover:text-brand-yellow transition">hello@kodeks.tech</a></li>
-                  <li data-i18n="footer_location">København, Danmark</li>
-              </ul>
-          </div>
-      </div>
-
-      <div class="max-w-5xl mx-auto mt-16 pt-8 border-t border-slate-200 flex
-  flex-col md:flex-row justify-between items-center gap-4 text-[10px]
-  text-slate-400 font-bold uppercase tracking-widest">
-          <span data-i18n="footer_copyright">© 2024 KODEKS.TECH — Alle
-  rettigheder forbeholdes</span>
-          <div class="flex gap-6">
-              <a href="#" class="hover:text-slate-600 transition"
-  data-i18n="footer_privacy">Privatlivspolitik</a>
-              <a href="#" class="hover:text-slate-600 transition"
-  data-i18n="footer_terms">Betingelser</a>
-          </div>
-      </div>
+  <footer class="mt-20 border-t bg-slate-50 py-16 px-6">
+  <div class="max-w-5xl mx-auto text-center">
+  <span class="text-xl font-bold">KODEKS<span
+  class="text-yellow-500">.</span>TECH</span>
+  <p class="text-slate-500 mt-4 text-sm">hello@kodeks.tech | København,
+  Danmark</p>
+  <p class="text-slate-400 text-xs mt-8">© 2024 KODEKS.TECH</p>
+  </div>
   </footer>
-
   <script>
-  (function() {
-      var SUPABASE_URL = 'https://rrggbjvyefvctkqnmfyf.supabase.co';
-      var SUPABASE_ANON_KEY =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJyZ2di
-  anZ5ZWZ2Y3RrcW5tZnlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0NTQwNjMsImV4cCI6MjA4OD
-  AzMDA2M30.s_RfB4mMq1f_0mpBUlsp70u1O1joCLLnF3FIzDfhTYc';
-
-      var db = null;
-      try {
-          db = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      } catch (e) {
-          console.warn('Supabase error:', e);
-      }
-
-      var currentLang = 'da';
-      var localArticles = [];
-      var localCourses = [];
-
-      var translations = {
-          da: {
-              nav_articles: "Medie",
-              nav_courses: "Akademi",
-              nav_about: "Om os",
-              nav_contact: "Kontakt",
-              language_label: "Sprog",
-              hero_title_1: "Klarhed i et",
-              hero_title_2: "komplekst",
-              hero_title_3: "marked.",
-              hero_subtitle: "Vi specialiserer os i krydsfeltet mellem jura og
-  teknologi. Få indsigt, der gør en forskel.",
-              hero_cta_articles: "Læs artikler",
-              hero_cta_courses: "Se kurser",
-              articles_title: "Nyheder & Analyser",
-              articles_subtitle: "De seneste indsigter inden for tech-jura",
-              read_article: "Læs artiklen",
-              back_to_articles: "Tilbage til artikler",
-              loading: "Indlæser...",
-              no_articles: "Ingen artikler fundet.",
-              courses_title: "Akademi",
-              courses_subtitle: "Kurser og uddannelse inden for tech-jura",
-              view_course: "Se kursus",
-              back_to_courses: "Tilbage til kurser",
-              price_label: "Pris",
-              enroll_btn: "Tilmeld mig",
-              no_courses: "Ingen kurser fundet.",
-              no_description: "Ingen beskrivelse tilgængelig.",
-              about_title: "Om KODEKS.TECH",
-              about_subtitle: "Vores mission og vision",
-              about_mission_title: "Vores Mission",
-              about_mission_text: "KODEKS.TECH blev grundlagt med én klar
-  vision: at bygge bro mellem juraens kompleksitet og teknologiens muligheder.
-  Vi tror på, at fremtidens juridiske rådgivning kræver dyb forståelse for begge
-   verdener.",
-              about_mission_text_2: "Vores team af specialister kombinerer
-  juridisk ekspertise med teknisk indsigt for at levere rådgivning, der er både
-  praktisk anvendelig og fremtidssikret.",
-              about_values_title: "Vores Værdier",
-              about_value_1_title: "Klarhed",
-              about_value_1_text: "Vi gør det komplekse forståeligt",
-              about_value_2_title: "Innovation",
-              about_value_2_text: "Vi omfavner ny teknologi",
-              about_value_3_title: "Integritet",
-              about_value_3_text: "Vi leverer ærlig, uafhængig rådgivning",
-              about_expertise_title: "Vores Ekspertiseområder",
-              expertise_1: "GDPR & Databeskyttelse",
-              expertise_2: "AI & Maskinlæring",
-              expertise_3: "IT-kontrakter",
-              expertise_4: "Digital Compliance",
-              contact_title: "Kontakt os",
-              contact_subtitle: "Vi vender tilbage inden for 24 timer",
-              form_name: "Navn",
-              form_email: "E-mail",
-              form_subject: "Emne",
-              form_message: "Besked",
-              form_submit: "Send besked",
-              form_success: "Tak for din besked! Vi vender tilbage hurtigst
-  muligt.",
-              form_error_fill: "Udfyld venligst alle felter.",
-              form_error_email: "Indtast venligst en gyldig e-mailadresse.",
-              form_error_send: "Der opstod en fejl. Prøv venligst igen.",
-              contact_direct: "Eller kontakt os direkte:",
-              footer_description: "Din kilde til indsigt i krydsfeltet mellem
-  jura og teknologi. Vi gør det komplekse forståeligt for professionelle.",
-              footer_nav: "Navigation",
-              footer_contact_title: "Kontakt",
-              footer_location: "København, Danmark",
-              footer_copyright: "© 2024 KODEKS.TECH — Alle rettigheder
-  forbeholdes",
-              footer_privacy: "Privatlivspolitik",
-              footer_terms: "Betingelser"
-          },
-          en: {
-              nav_articles: "Media",
-              nav_courses: "Academy",
-              nav_about: "About",
-              nav_contact: "Contact",
-              language_label: "Language",
-              hero_title_1: "Clarity in a",
-              hero_title_2: "complex",
-              hero_title_3: "market.",
-              hero_subtitle: "We specialize in the intersection of law and
-  technology. Gain insights that make a difference.",
-              hero_cta_articles: "Read articles",
-              hero_cta_courses: "View courses",
-              articles_title: "News & Analysis",
-              articles_subtitle: "The latest insights in tech law",
-              read_article: "Read article",
-              back_to_articles: "Back to articles",
-              loading: "Loading...",
-              no_articles: "No articles found.",
-              courses_title: "Academy",
-              courses_subtitle: "Courses and education in tech law",
-              view_course: "View course",
-              back_to_courses: "Back to courses",
-              price_label: "Price",
-              enroll_btn: "Enroll now",
-              no_courses: "No courses found.",
-              no_description: "No description available.",
-              about_title: "About KODEKS.TECH",
-              about_subtitle: "Our mission and vision",
-              about_mission_title: "Our Mission",
-              about_mission_text: "KODEKS.TECH was founded with one clear
-  vision: to bridge the gap between the complexity of law and the possibilities
-  of technology. We believe that the future of legal advice requires a deep
-  understanding of both worlds.",
-              about_mission_text_2: "Our team of specialists combines legal
-  expertise with technical insight to deliver advice that is both practically
-  applicable and future-proof.",
-              about_values_title: "Our Values",
-              about_value_1_title: "Clarity",
-              about_value_1_text: "We make the complex understandable",
-              about_value_2_title: "Innovation",
-              about_value_2_text: "We embrace new technology",
-              about_value_3_title: "Integrity",
-              about_value_3_text: "We deliver honest, independent advice",
-              about_expertise_title: "Our Areas of Expertise",
-              expertise_1: "GDPR & Data Protection",
-              expertise_2: "AI & Machine Learning",
-              expertise_3: "IT Contracts",
-              expertise_4: "Digital Compliance",
-              contact_title: "Contact us",
-              contact_subtitle: "We'll get back to you within 24 hours",
-              form_name: "Name",
-              form_email: "Email",
-              form_subject: "Subject",
-              form_message: "Message",
-              form_submit: "Send message",
-              form_success: "Thank you for your message! We'll get back to you
-  as soon as possible.",
-              form_error_fill: "Please fill in all fields.",
-              form_error_email: "Please enter a valid email address.",
-              form_error_send: "An error occurred. Please try again.",
-              contact_direct: "Or contact us directly:",
-              footer_description: "Your source for insights at the intersection
-  of law and technology. We make the complex understandable for professionals.",
-              footer_nav: "Navigation",
-              footer_contact_title: "Contact",
-              footer_location: "Copenhagen, Denmark",
-              footer_copyright: "© 2024 KODEKS.TECH — All rights reserved",
-              footer_privacy: "Privacy Policy",
-              footer_terms: "Terms"
-          }
-      };
-
-      function t(key) {
-          return translations[currentLang][key] || translations['da'][key] ||
-  key;
-      }
-
-      function navigateTo(id) {
-          var sections = document.querySelectorAll('.page-section');
-          for (var i = 0; i < sections.length; i++) {
-              sections[i].classList.remove('active');
-          }
-          var target = document.getElementById(id);
-          if (target) {
-              target.classList.add('active');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-      }
-
-      function toggleMobileMenu() {
-          var menu = document.getElementById('mobile-menu');
-          var menuIcon = document.getElementById('menu-icon');
-          var closeIcon = document.getElementById('close-icon');
-          if (menu) menu.classList.toggle('open');
-          if (menuIcon) menuIcon.classList.toggle('hidden');
-          if (closeIcon) closeIcon.classList.toggle('hidden');
-      }
-
-      function setLanguage(lang) {
-          currentLang = lang;
-          document.documentElement.lang = lang;
-
-          var langDa = document.getElementById('lang-da');
-          var langEn = document.getElementById('lang-en');
-          if (langDa) langDa.classList.toggle('active', lang === 'da');
-          if (langEn) langEn.classList.toggle('active', lang === 'en');
-
-          var mobileBtns = document.querySelectorAll('.lang-btn-mobile');
-          for (var i = 0; i < mobileBtns.length; i++) {
-              var btn = mobileBtns[i];
-              var btnLang = btn.getAttribute('data-lang');
-              btn.style.backgroundColor = btnLang === lang ? '#EAB308' : '';
-              btn.style.color = btnLang === lang ? 'white' : '';
-          }
-
-          var elements = document.querySelectorAll('[data-i18n]');
-          for (var i = 0; i < elements.length; i++) {
-              var el = elements[i];
-              var key = el.getAttribute('data-i18n');
-              if (translations[lang][key]) {
-                  el.textContent = translations[lang][key];
-              }
-          }
-
-          renderArticles();
-          renderCourses();
-          localStorage.setItem('kodeks_lang', lang);
-      }
-
-      function getLocalizedField(item, field) {
-          var localizedField = field + '_' + currentLang;
-          var fallbackField = field + '_da';
-          return item[localizedField] || item[fallbackField] || item[field] ||
-  '';
-      }
-
-      function formatDate(dateStr) {
-          if (!dateStr) return '';
-          var date = new Date(dateStr);
-          return date.toLocaleDateString(currentLang === 'da' ? 'da-DK' :
-  'en-US');
-      }
-
-      function renderArticles() {
-          var list = document.getElementById('article-list');
-          if (!localArticles || !localArticles.length) {
-              list.innerHTML = '<p class="text-slate-500 col-span-2">' +
-  t('no_articles') + '</p>';
-              return;
-          }
-
-          var html = '';
-          for (var i = 0; i < localArticles.length; i++) {
-              var art = localArticles[i];
-              var title = getLocalizedField(art, 'title');
-              var excerpt = getLocalizedField(art, 'excerpt');
-              var category = getLocalizedField(art, 'category');
-              var imageUrl = art.image_url || 'https://images.unsplash.com/photo
-  -1450101499163-c8848c66ca85?w=600&h=400&fit=crop';
-              var date = art.date || formatDate(art.created_at);
-
-              html += '<div class="article-card card-hover group cursor-pointer
-  rounded-2xl border border-slate-100 overflow-hidden bg-white" data-id="' +
-  art.id + '">' +
-                  '<div class="relative h-48 overflow-hidden">' +
-                      '<img src="' + imageUrl + '" alt="' + title + '"
-  class="w-full h-full object-cover transition-transform duration-500
-  group-hover:scale-105">' +
-                      '<div class="absolute top-4 left-4">' +
-                          '<span class="text-[10px] font-bold bg-white/90
-  backdrop-blur-sm text-slate-700 px-3 py-1 rounded-full uppercase">' + category
-   + '</span>' +
-                      '</div>' +
-                  '</div>' +
-                  '<div class="p-6">' +
-                      '<p class="text-xs text-slate-400 mb-2">' + date + '</p>'
-  +
-                      '<h3 class="text-xl font-bold mb-3
-  group-hover:text-brand-yellow transition">' + title + '</h3>' +
-                      '<p class="text-slate-600 text-sm mb-4">' + excerpt +
-  '</p>' +
-                      '<span class="text-slate-900 font-bold text-sm">' +
-  t('read_article') + ' →</span>' +
-                  '</div>' +
-              '</div>';
-          }
-          list.innerHTML = html;
-
-          var cards = document.querySelectorAll('.article-card');
-          for (var j = 0; j < cards.length; j++) {
-              cards[j].addEventListener('click', function() {
-                  var id = parseInt(this.getAttribute('data-id'));
-                  openArticle(id);
-              });
-          }
-      }
-
-      function renderCourses() {
-          var list = document.getElementById('course-list');
-          if (!localCourses || !localCourses.length) {
-              list.innerHTML = '<p class="text-slate-500 col-span-2">' +
-  t('no_courses') + '</p>';
-              return;
-          }
-
-          var html = '';
-          for (var i = 0; i < localCourses.length; i++) {
-              var c = localCourses[i];
-              var title = getLocalizedField(c, 'title');
-              var description = getLocalizedField(c, 'description');
-              var type = getLocalizedField(c, 'type');
-              var price = c.price || 'Kontakt os';
-
-              html += '<div class="course-card card-hover group p-8 border
-  border-slate-100 rounded-2xl bg-white cursor-pointer" data-id="' + c.id + '">'
-   +
-                  '<div class="flex flex-col gap-4">' +
-                      '<div>' +
-                          '<span class="text-[10px] font-bold bg-slate-100
-  text-slate-500 px-3 py-1 rounded-full uppercase">' + type + '</span>' +
-                      '</div>' +
-                      '<h3 class="text-2xl font-bold
-  group-hover:text-brand-yellow transition">' + title + '</h3>' +
-                      '<p class="text-slate-500 text-sm">' + (description ||
-  t('no_description')) + '</p>' +
-                      '<div class="flex justify-between items-center pt-4
-  border-t border-slate-100">' +
-                          '<div>' +
-                              '<p class="text-xs text-slate-400 uppercase">' +
-  t('price_label') + '</p>' +
-                              '<p class="text-lg font-bold">' + price + '</p>' +
-                          '</div>' +
-                          '<span class="text-brand-yellow font-bold">' +
-  t('view_course') + ' →</span>' +
-                      '</div>' +
-                  '</div>' +
-              '</div>';
-          }
-          list.innerHTML = html;
-
-          var cards = document.querySelectorAll('.course-card');
-          for (var j = 0; j < cards.length; j++) {
-              cards[j].addEventListener('click', function() {
-                  var id = parseInt(this.getAttribute('data-id'));
-                  openCourse(id);
-              });
-          }
-      }
-
-      function openArticle(id) {
-          var art = null;
-          for (var i = 0; i < localArticles.length; i++) {
-              if (localArticles[i].id === id) {
-                  art = localArticles[i];
-                  break;
-              }
-          }
-          if (!art) return;
-
-          var title = getLocalizedField(art, 'title');
-          var content = getLocalizedField(art, 'content');
-          var category = getLocalizedField(art, 'category');
-          var imageUrl = art.image_url || 'https://images.unsplash.com/photo-145
-  0101499163-c8848c66ca85?w=1200&h=600&fit=crop';
-          var date = art.date || formatDate(art.created_at);
-
-          document.getElementById('article-content').innerHTML =
-              '<div class="mb-8">' +
-                  '<span class="text-xs font-bold text-brand-yellow uppercase">'
-   + category + '</span>' +
-                  '<span class="text-xs text-slate-400 ml-2">' + date +
-  '</span>' +
-              '</div>' +
-              '<h1 class="text-4xl md:text-5xl font-bold mb-8 leading-tight">' +
-   title + '</h1>' +
-              '<img src="' + imageUrl + '" alt="' + title + '" class="w-full
-  h-64 md:h-80 object-cover rounded-2xl mb-10">' +
-              '<div class="prose prose-lg text-slate-600 leading-relaxed">' +
-  content + '</div>';
-
-          navigateTo('article-detail');
-      }
-
-      function openCourse(id) {
-          var c = null;
-          for (var i = 0; i < localCourses.length; i++) {
-              if (localCourses[i].id === id) {
-                  c = localCourses[i];
-                  break;
-              }
-          }
-          if (!c) return;
-
-          var title = getLocalizedField(c, 'title');
-          var description = getLocalizedField(c, 'description') ||
-  t('no_description');
-          var type = getLocalizedField(c, 'type');
-          var price = c.price || 'Kontakt os';
-
-          document.getElementById('course-content').innerHTML =
-              '<span class="text-xs font-bold bg-slate-100 text-slate-500 px-3
-  py-1 rounded-full uppercase">' + type + '</span>' +
-              '<h1 class="text-4xl font-bold my-6">' + title + '</h1>' +
-              '<div class="prose prose-lg text-slate-600 mb-10
-  leading-relaxed">' + description + '</div>' +
-              '<div class="p-8 bg-slate-50 rounded-2xl border
-  border-slate-200">' +
-                  '<p class="text-xs text-slate-400 uppercase mb-1">' +
-  t('price_label') + '</p>' +
-                  '<div class="text-3xl font-bold mb-6">' + price + '</div>' +
-                  '<button id="enroll-btn" class="px-8 py-4 bg-brand-yellow
-  text-white rounded-xl font-bold hover:bg-brand-yellowHover transition w-full
-  md:w-auto">' +
-                      t('enroll_btn') +
-                  '</button>' +
-              '</div>';
-
-          document.getElementById('enroll-btn').addEventListener('click',
-  function() {
-              navigateTo('contact');
-          });
-
-          navigateTo('course-detail');
-      }
-
-      async function loadData() {
-          if (!db) {
-              document.getElementById('article-list').innerHTML = '<p
-  class="text-slate-500 col-span-2">' + t('no_articles') + '</p>';
-              document.getElementById('course-list').innerHTML = '<p
-  class="text-slate-500 col-span-2">' + t('no_courses') + '</p>';
-              return;
-          }
-
-          try {
-              var articlesRes = await
-  db.from('articles').select('*').order('created_at', { ascending: false });
-              if (articlesRes.data) {
-                  localArticles = articlesRes.data;
-                  renderArticles();
-              }
-
-              var coursesRes = await
-  db.from('courses').select('*').order('created_at', { ascending: false });
-              if (coursesRes.data) {
-                  localCourses = coursesRes.data;
-                  renderCourses();
-              }
-          } catch (e) {
-              console.error('Load error:', e);
-          }
-      }
-
-      function init() {
-          // Navigation
-          document.getElementById('logo-link').addEventListener('click',
-  function(e) { e.preventDefault(); navigateTo('home'); });
-          document.getElementById('nav-articles').addEventListener('click',
-  function() { navigateTo('articles'); });
-          document.getElementById('nav-courses').addEventListener('click',
-  function() { navigateTo('courses'); });
-          document.getElementById('nav-about').addEventListener('click',
-  function() { navigateTo('about'); });
-          document.getElementById('nav-contact').addEventListener('click',
-  function() { navigateTo('contact'); });
-
-          document.getElementById('mobile-menu-btn').addEventListener('click',
-  toggleMobileMenu);
-
-  document.getElementById('mobile-nav-articles').addEventListener('click',
-  function() { navigateTo('articles'); toggleMobileMenu(); });
-
-  document.getElementById('mobile-nav-courses').addEventListener('click',
-  function() { navigateTo('courses'); toggleMobileMenu(); });
-          document.getElementById('mobile-nav-about').addEventListener('click',
-  function() { navigateTo('about'); toggleMobileMenu(); });
-
-  document.getElementById('mobile-nav-contact').addEventListener('click',
-  function() { navigateTo('contact'); toggleMobileMenu(); });
-
-          document.getElementById('hero-articles-btn').addEventListener('click',
-   function() { navigateTo('articles'); });
-          document.getElementById('hero-courses-btn').addEventListener('click',
-  function() { navigateTo('courses'); });
-
-          document.getElementById('back-to-articles').addEventListener('click',
-  function() { navigateTo('articles'); });
-          document.getElementById('back-to-courses').addEventListener('click',
-  function() { navigateTo('courses'); });
-
-          document.getElementById('footer-articles').addEventListener('click',
-  function() { navigateTo('articles'); });
-          document.getElementById('footer-courses').addEventListener('click',
-  function() { navigateTo('courses'); });
-          document.getElementById('footer-about').addEventListener('click',
-  function() { navigateTo('about'); });
-          document.getElementById('footer-contact').addEventListener('click',
-  function() { navigateTo('contact'); });
-
-          // Language
-          document.getElementById('lang-da').addEventListener('click',
-  function() { setLanguage('da'); });
-          document.getElementById('lang-en').addEventListener('click',
-  function() { setLanguage('en'); });
-          document.getElementById('mobile-lang-da').addEventListener('click',
-  function() { setLanguage('da'); });
-          document.getElementById('mobile-lang-en').addEventListener('click',
-  function() { setLanguage('en'); });
-
-          // Contact form
-          document.getElementById('contact-form').addEventListener('submit',
-  async function(e) {
-              e.preventDefault();
-
-              var name = document.getElementById('form-name').value.trim();
-              var email = document.getElementById('form-email').value.trim();
-              var subject = document.getElementById('form-subject').value;
-              var message =
-  document.getElementById('form-message').value.trim();
-
-              var errorEl = document.getElementById('form-error');
-              var successEl = document.getElementById('form-success');
-
-              errorEl.classList.add('hidden');
-              successEl.classList.add('hidden');
-
-              if (!name || !email || !subject || !message) {
-                  errorEl.textContent = t('form_error_fill');
-                  errorEl.classList.remove('hidden');
-                  return;
-              }
-
-              var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-              if (!emailRegex.test(email)) {
-                  errorEl.textContent = t('form_error_email');
-                  errorEl.classList.remove('hidden');
-                  return;
-              }
-
-              if (db) {
-                  try {
-                      await db.from('contact_messages').insert([{ name: name,
-  email: email, subject: subject, message: message, language: currentLang }]);
-                  } catch (err) {
-                      console.error('Contact error:', err);
-                  }
-              }
-
-              successEl.textContent = t('form_success');
-              successEl.classList.remove('hidden');
-              document.getElementById('contact-form').reset();
-          });
-
-          // Load saved language
-          var savedLang = localStorage.getItem('kodeks_lang');
-          if (savedLang && (savedLang === 'da' || savedLang === 'en')) {
-              setLanguage(savedLang);
-          }
-
-          // Load data
-          loadData();
-      }
-
-      if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', init);
-      } else {
-          init();
-      }
-  })();
+  var SUPABASE_URL="https://rrggbjvyefvctkqnmfyf.supabase.co";
+  var SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
+  sInJlZiI6InJyZ2dianZ5ZWZ2Y3RrcW5tZnlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0NTQwN
+  jMsImV4cCI6MjA4ODAzMDA2M30.s_RfB4mMq1f_0mpBUlsp70u1O1joCLLnF3FIzDfhTYc";
+  var db=null;
+  try{db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY)}catch(e){console.warn(
+  e)}
+  var lang="da";
+  var articles=[];
+  var courses=[];
+  var T={
+  da:{hero1:"Klarhed i et",hero2:"komplekst",hero3:"marked.",herosub:"Vi
+  specialiserer os i krydsfeltet mellem jura og teknologi.",heroart:"Læs
+  artikler",herocrs:"Se kurser",arttitle:"Nyheder & Analyser",artsub:"De seneste
+   indsigter inden for tech-jura",crstitle:"Akademi",crssub:"Kurser inden for
+  tech-jura",back:"← Tilbage",abouttitle:"Om KODEKS.TECH",aboutsub:"Vores
+  mission og vision",mission:"Vores Mission",missiontext:"KODEKS.TECH bygger bro
+   mellem juraens kompleksitet og teknologiens muligheder.",values:"Vores Værdie
+  r",val1:"Klarhed",val2:"Innovation",val3:"Integritet",contacttitle:"Kontakt
+  os",contactsub:"Vi vender tilbage inden for 24 timer",fname:"Navn",femail:"E-m
+  ail",fsubject:"Emne",fmessage:"Besked",fsend:"Send besked",read:"Læs
+  artiklen",view:"Se kursus",price:"Pris",enroll:"Tilmeld mig",noart:"Ingen
+  artikler",nocrs:"Ingen kurser"},
+  en:{hero1:"Clarity in a",hero2:"complex",hero3:"market.",herosub:"We
+  specialize in the intersection of law and technology.",heroart:"Read
+  articles",herocrs:"View courses",arttitle:"News & Analysis",artsub:"The latest
+   insights in tech law",crstitle:"Academy",crssub:"Courses in tech law",back:"←
+   Back",abouttitle:"About KODEKS.TECH",aboutsub:"Our mission and
+  vision",mission:"Our Mission",missiontext:"KODEKS.TECH bridges the gap between
+   legal complexity and technological possibilities.",values:"Our Values",val1:"
+  Clarity",val2:"Innovation",val3:"Integrity",contacttitle:"Contact
+  us",contactsub:"We will get back to you within 24 hours",fname:"Name",femail:"
+  Email",fsubject:"Subject",fmessage:"Message",fsend:"Send message",read:"Read
+  article",view:"View course",price:"Price",enroll:"Enroll now",noart:"No
+  articles found",nocrs:"No courses found"}
+  };
+  function t(k){return T[lang][k]||T.da[k]||k}
+  function nav(id){
+  var s=document.querySelectorAll(".page-section");
+  for(var i=0;i<s.length;i++){s[i].classList.remove("active")}
+  var el=document.getElementById(id);
+  if(el){el.classList.add("active");window.scrollTo({top:0,behavior:"smooth"})}
+  }
+  function setLang(l){
+  lang=l;
+  document.getElementById("lang-da").classList.toggle("active",l==="da");
+  document.getElementById("lang-en").classList.toggle("active",l==="en");
+  document.getElementById("mobile-lang-da").style.backgroundColor=l==="da"?"#EAB
+  308":"#e5e7eb";
+  document.getElementById("mobile-lang-da").style.color=l==="da"?"white":"black"
+  ;
+  document.getElementById("mobile-lang-en").style.backgroundColor=l==="en"?"#EAB
+  308":"#e5e7eb";
+  document.getElementById("mobile-lang-en").style.color=l==="en"?"white":"black"
+  ;
+  var els=document.querySelectorAll("[data-i18n]");
+  for(var i=0;i<els.length;i++){
+  var k=els[i].getAttribute("data-i18n");
+  if(T[l][k]){els[i].textContent=T[l][k]}
+  }
+  renderArticles();
+  renderCourses();
+  localStorage.setItem("lang",l);
+  }
+  function getField(item,field){
+  var lf=field+"_"+lang;
+  var df=field+"_da";
+  return item[lf]||item[df]||item[field]||"";
+  }
+  function renderArticles(){
+  var list=document.getElementById("article-list");
+  if(!articles.length){list.innerHTML="<p class='text-slate-500
+  col-span-2'>"+t("noart")+"</p>";return}
+  var html="";
+  for(var i=0;i<articles.length;i++){
+  var a=articles[i];
+  var title=getField(a,"title");
+  var excerpt=getField(a,"excerpt");
+  var img=a.image_url||"https://images.unsplash.com/photo-1450101499163-c8848c66
+  ca85?w=600&h=400&fit=crop";
+  html+="<div class='article-card cursor-pointer border rounded-2xl
+  overflow-hidden bg-white hover:shadow-lg transition' data-id='"+a.id+"'>";
+  html+="<img src='"+img+"' class='w-full h-48 object-cover'>";
+  html+="<div class='p-6'><h3 class='text-xl font-bold mb-2'>"+title+"</h3>";
+  html+="<p class='text-slate-600 text-sm mb-4'>"+excerpt+"</p>";
+  html+="<span class='text-slate-900 font-bold text-sm'>"+t("read")+"
+  →</span></div></div>";
+  }
+  list.innerHTML=html;
+  var cards=document.querySelectorAll(".article-card");
+  for(var j=0;j<cards.length;j++){
+  cards[j].addEventListener("click",function(){
+  var id=parseInt(this.getAttribute("data-id"));
+  openArticle(id);
+  });
+  }
+  }
+  function renderCourses(){
+  var list=document.getElementById("course-list");
+  if(!courses.length){list.innerHTML="<p class='text-slate-500
+  col-span-2'>"+t("nocrs")+"</p>";return}
+  var html="";
+  for(var i=0;i<courses.length;i++){
+  var c=courses[i];
+  var title=getField(c,"title");
+  var desc=getField(c,"description")||"";
+  var price=c.price||"Kontakt os";
+  html+="<div class='course-card cursor-pointer border rounded-2xl p-6 bg-white
+  hover:shadow-lg transition' data-id='"+c.id+"'>";
+  html+="<h3 class='text-xl font-bold mb-2'>"+title+"</h3>";
+  html+="<p class='text-slate-600 text-sm mb-4'>"+desc+"</p>";
+  html+="<div class='flex justify-between items-center pt-4 border-t'>";
+  html+="<div><p class='text-xs text-slate-400'>"+t("price")+"</p><p
+  class='font-bold'>"+price+"</p></div>";
+  html+="<span class='text-yellow-500 font-bold'>"+t("view")+"
+  →</span></div></div>";
+  }
+  list.innerHTML=html;
+  var cards=document.querySelectorAll(".course-card");
+  for(var j=0;j<cards.length;j++){
+  cards[j].addEventListener("click",function(){
+  var id=parseInt(this.getAttribute("data-id"));
+  openCourse(id);
+  });
+  }
+  }
+  function openArticle(id){
+  var a=null;
+  for(var
+  i=0;i<articles.length;i++){if(articles[i].id===id){a=articles[i];break}}
+  if(!a)return;
+  var title=getField(a,"title");
+  var content=getField(a,"content");
+  var img=a.image_url||"https://images.unsplash.com/photo-1450101499163-c8848c66
+  ca85?w=1200&h=600&fit=crop";
+  document.getElementById("article-content").innerHTML="<h1 class='text-4xl
+  font-bold mb-6'>"+title+"</h1><img src='"+img+"' class='w-full h-64
+  object-cover rounded-xl mb-8'><div class='text-slate-600
+  leading-relaxed'>"+content+"</div>";
+  nav("article-detail");
+  }
+  function openCourse(id){
+  var c=null;
+  for(var i=0;i<courses.length;i++){if(courses[i].id===id){c=courses[i];break}}
+  if(!c)return;
+  var title=getField(c,"title");
+  var desc=getField(c,"description")||"";
+  var price=c.price||"Kontakt os";
+  document.getElementById("course-content").innerHTML="<h1 class='text-4xl
+  font-bold mb-6'>"+title+"</h1><p class='text-slate-600 mb-8'>"+desc+"</p><div
+  class='bg-slate-50 p-6 rounded-xl border'><p class='text-xs
+  text-slate-400'>"+t("price")+"</p><p class='text-2xl font-bold
+  mb-4'>"+price+"</p><button id='enroll-btn' class='px-6 py-3 bg-yellow-500
+  text-white rounded-xl font-bold'>"+t("enroll")+"</button></div>";
+  document.getElementById("enroll-btn").addEventListener("click",function(){nav(
+  "contact")});
+  nav("course-detail");
+  }
+  async function loadData(){
+  if(!db)return;
+  try{
+  var ar=await
+  db.from("articles").select("*").order("created_at",{ascending:false});
+  if(ar.data){articles=ar.data;renderArticles()}
+  var cr=await
+  db.from("courses").select("*").order("created_at",{ascending:false});
+  if(cr.data){courses=cr.data;renderCourses()}
+  }catch(e){console.error(e)}
+  }
+  function toggleMenu(){
+  var m=document.getElementById("mobile-menu");
+  if(m)m.classList.toggle("open");
+  }
+  document.addEventListener("DOMContentLoaded",function(){
+  document.getElementById("logo-link").addEventListener("click",function(e){e.pr
+  eventDefault();nav("home")});
+  document.getElementById("nav-articles").addEventListener("click",function(){na
+  v("articles")});
+  document.getElementById("nav-courses").addEventListener("click",function(){nav
+  ("courses")});
+  document.getElementById("nav-about").addEventListener("click",function(){nav("
+  about")});
+  document.getElementById("nav-contact").addEventListener("click",function(){nav
+  ("contact")});
+  document.getElementById("mobile-menu-btn").addEventListener("click",toggleMenu
+  );
+  document.getElementById("mobile-nav-articles").addEventListener("click",functi
+  on(){nav("articles");toggleMenu()});
+  document.getElementById("mobile-nav-courses").addEventListener("click",functio
+  n(){nav("courses");toggleMenu()});
+  document.getElementById("mobile-nav-about").addEventListener("click",function(
+  ){nav("about");toggleMenu()});
+  document.getElementById("mobile-nav-contact").addEventListener("click",functio
+  n(){nav("contact");toggleMenu()});
+  document.getElementById("hero-articles").addEventListener("click",function(){n
+  av("articles")});
+  document.getElementById("hero-courses").addEventListener("click",function(){na
+  v("courses")});
+  document.getElementById("back-articles").addEventListener("click",function(){n
+  av("articles")});
+  document.getElementById("back-courses").addEventListener("click",function(){na
+  v("courses")});
+  document.getElementById("lang-da").addEventListener("click",function(){setLang
+  ("da")});
+  document.getElementById("lang-en").addEventListener("click",function(){setLang
+  ("en")});
+  document.getElementById("mobile-lang-da").addEventListener("click",function(){
+  setLang("da")});
+  document.getElementById("mobile-lang-en").addEventListener("click",function(){
+  setLang("en")});
+  document.getElementById("contact-form").addEventListener("submit",async
+  function(e){
+  e.preventDefault();
+  var name=document.getElementById("form-name").value;
+  var email=document.getElementById("form-email").value;
+  var subject=document.getElementById("form-subject").value;
+  var message=document.getElementById("form-message").value;
+  if(db){try{await db.from("contact_messages").insert([{name:name,email:email,su
+  bject:subject,message:message}])}catch(err){}}
+  document.getElementById("form-success").classList.remove("hidden");
+  document.getElementById("contact-form").reset();
+  });
+  var saved=localStorage.getItem("lang");
+  if(saved==="en"){setLang("en")}
+  loadData();
+  });
   </script>
-
   </body>
   </html>
-
