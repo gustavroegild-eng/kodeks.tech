@@ -1,6 +1,6 @@
  <!DOCTYPE html>                                                               
   <html lang="da">                                                              
-  <head>                                                                        
+ <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>KODEKS.TECH | Jura & Teknologi</title>
@@ -21,6 +21,31 @@
               }
           }
       </script>
+
+      <!-- NAVIGATION FUNCTIONS - SKAL VÆRE HER -->
+      <script>
+          function navigateTo(id) {
+              var sections = document.querySelectorAll('.page-section');
+              for (var i = 0; i < sections.length; i++) {
+                  sections[i].classList.remove('active');
+              }
+              var target = document.getElementById(id);
+              if (target) {
+                  target.classList.add('active');
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+          }
+
+          function toggleMobileMenu() {
+              var menu = document.getElementById('mobile-menu');
+              var menuIcon = document.getElementById('menu-icon');
+              var closeIcon = document.getElementById('close-icon');
+              if (menu) menu.classList.toggle('open');
+              if (menuIcon) menuIcon.classList.toggle('hidden');
+              if (closeIcon) closeIcon.classList.toggle('hidden');
+          }
+      </script>
+
       <style>
           body { font-family: 'Plus Jakarta Sans', sans-serif; }
           .page-section { display: none; }
@@ -44,6 +69,7 @@
   40px rgba(0,0,0,0.08); }
       </style>
   </head>
+
   <body class="bg-white text-slate-900">
 
       <!-- ========== NAVIGATION ========== -->
@@ -440,27 +466,7 @@
 
       <!-- ========== JAVASCRIPT ========== -->
       <script>
-          // ==================== NAVIGATION (DEFINERES FØRST)
-  ====================
-          function navigateTo(id) {
-              document.querySelectorAll('.page-section').forEach(function(s) {
-                  s.classList.remove('active');
-              });
-              var section = document.getElementById(id);
-              if (section) {
-                  section.classList.add('active');
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-          }
-
-          function toggleMobileMenu() {
-              var menu = document.getElementById('mobile-menu');
-              var menuIcon = document.getElementById('menu-icon');
-              var closeIcon = document.getElementById('close-icon');
-              if (menu) menu.classList.toggle('open');
-              if (menuIcon) menuIcon.classList.toggle('hidden');
-              if (closeIcon) closeIcon.classList.toggle('hidden');
-          }
+    
 
           // ==================== SUPABASE KONFIGURATION ====================
           var SUPABASE_URL = 'https://rrggbjvyefvctkqnmfyf.supabase.co';
