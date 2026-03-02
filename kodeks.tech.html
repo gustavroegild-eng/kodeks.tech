@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="da"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Kodeks.tech - WordPress Ready&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Google Fonts: Plus Jakarta Sans (Premium, moderne og professionel) --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;display=swap" rel="stylesheet"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Tailwind CSS CDN --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>tailwind.config = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>theme: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>extend: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>fontFamily: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>sans: ['"Plus Jakarta Sans"', 'sans-serif'],</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>colors: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>brand: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>yellow: '#EAB308', // Lidt dybere, mere eksklusiv gul (Tailwind yellow-500)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>yellowHover: '#CA8A04', // Mørkere gul til hover</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>/* Sikrer at WordPress-temaer ikke overskriver vores font */</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>#kodeks-app, #kodeks-app button, #kodeks-app input, #kodeks-app textarea {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-family: '"Plus Jakarta Sans"', sans-serif !important;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.page-section { display: none; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.page-section.active { display: block; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.fade-in { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@keyframes fadeIn {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>from { opacity: 0; transform: translateY(12px); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>to { opacity: 1; transform: translateY(0); }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.yellow-highlight {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: relative;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>z-index: 1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: inline-block;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.yellow-highlight::after {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>content: '';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: absolute;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>bottom: 6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>left: -2px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>right: -2px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 30%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background-color: #EAB308;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>opacity: 0.25;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>z-index: -1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 2px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body class="bg-white"&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;div id="kodeks-app" class="min-h-screen text-slate-900 antialiased"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Navigation --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 transition-all"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-5xl mx-auto px-6 h-20 flex justify-between items-center"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;a href="javascript:void(0)" onclick="navigateTo('home')" class="group flex items-center"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;span class="text-xl font-bold tracking-tight text-slate-900"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>KODEKS&lt;span class="text-brand-yellow"&gt;.&lt;/span&gt;TECH</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/a&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="hidden md:flex items-center space-x-10"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;button onclick="navigateTo('articles')" class="nav-link text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors" data-page="articles"&gt;Medie&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;button onclick="navigateTo('courses')" class="nav-link text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors" data-page="courses"&gt;Akademi&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;button onclick="navigateTo('about')" class="nav-link text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors" data-page="about"&gt;Om os&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;button onclick="navigateTo('contact')" class="nav-link text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors" data-page="contact"&gt;Kontakt&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;button id="lang-toggle" onclick="toggleLanguage()" class="ml-2 px-3 py-1.5 bg-slate-100 border border-slate-200 rounded-md text-xs font-bold text-slate-600 hover:bg-slate-200 transition-colors"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>EN</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/nav&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Content Sections --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;main&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- FORSIDE --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;section id="home" class="page-section active fade-in"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="pt-48 pb-32 px-6 max-w-5xl mx-auto"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;h1 class="text-5xl md:text-7xl font-bold text-slate-900 leading-[1.15] mb-8 tracking-tight"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>Klarhed i et &lt;br /&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="yellow-highlight italic pr-2"&gt;komplekst&lt;/span&gt; marked.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="flex flex-col md:flex-row md:items-end justify-between gap-10"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;p class="max-w-lg text-lg text-slate-600 leading-relaxed font-normal"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>Kodeks.tech leverer præcis indsigt i tech-jura gennem uafhængig journalistik og specialiserede kurser til professionelle.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="flex gap-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;button onclick="navigateTo('courses')" class="px-8 py-3.5 bg-brand-yellow hover:bg-brand-yellowHover text-white text-sm font-semibold rounded-lg transition-colors shadow-sm flex items-center gap-2"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>Se Akademi</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;line x1="5" y1="12" x2="19" y2="12"&gt;&lt;/line&gt;&lt;polyline points="12 5 19 12 12 19"&gt;&lt;/polyline&gt;&lt;/svg&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;button onclick="navigateTo('articles')" class="px-8 py-3.5 bg-white border border-slate-200 text-slate-700 text-sm font-semibold rounded-lg hover:border-slate-400 hover:text-slate-900 transition-colors"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>Læs Mediet</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- MEDIE --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;section id="articles" class="page-section fade-in"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-5xl mx-auto px-6 py-40"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;header class="mb-20"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="text-brand-yellow text-sm font-semibold mb-4 flex items-center gap-3"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div class="w-8 h-[2px] bg-brand-yellow"&gt;&lt;/div&gt;<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>Nyheder &amp; Analyser</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900"&gt;Indsigt &amp; Udsyn.&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;p class="text-lg text-slate-600 max-w-2xl leading-relaxed"&gt;Uafhængig og dybdegående dækning af lovgivningen bag morgendagens teknologi.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/header&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="space-y-6" id="article-list"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- AKADEMI --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;section id="courses" class="page-section fade-in"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-5xl mx-auto px-6 py-40"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;header class="mb-20 text-center flex flex-col items-center"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="inline-block px-3 py-1 bg-slate-50 border border-slate-200 text-slate-600 text-xs font-semibold rounded-full mb-6"&gt;Kodeks Akademi&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900"&gt;Uddannelse til &lt;br /&gt;den digitale elite.&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;p class="text-lg text-slate-600 max-w-xl"&gt;Opgrader dit teams kompetencer med vores specialiserede kurser i tech-jura.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/header&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="course-list"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- OM OS --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;section id="about" class="page-section fade-in"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-3xl mx-auto px-6 py-40"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="text-brand-yellow text-sm font-semibold mb-6 flex items-center gap-3"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="w-8 h-[2px] bg-brand-yellow"&gt;&lt;/div&gt;<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>Vores Mission</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-10 leading-tight text-slate-900"&gt;Vi bygger bro mellem &lt;br /&gt;kode og paragraffer.&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="space-y-8 text-lg font-normal leading-relaxed text-slate-600"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;p&gt;Hos &lt;strong class="text-slate-900 font-semibold"&gt;Kodeks.tech&lt;/strong&gt; tror vi på, at den største barriere for innovation i dag ikke er teknologi, men forståelsen af de regulatoriske rammer.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;p&gt;Vi er en platform dedikeret til at sikre, at jurister, beslutningstagere og tech-professionelle taler samme sprog. Ved at levere præcis, anvendelig viden fjerner vi kompleksiteten og skaber retning.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- KONTAKT --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;section id="contact" class="page-section fade-in"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-5xl mx-auto px-6 py-40"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-20"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-8 text-slate-900"&gt;Kontakt.&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;p class="text-slate-600 text-lg mb-12 leading-relaxed"&gt;Har du spørgsmål til vores kurser, brug for et skræddersyet forløb, eller har du et tip til redaktionen?&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div class="space-y-2"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;p class="text-xs font-semibold text-slate-400 uppercase tracking-wider"&gt;Direkte E-mail&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;p class="text-2xl font-bold text-slate-900 hover:text-brand-yellow transition-colors cursor-pointer"&gt;hello@kodeks.tech&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="p-8 md:p-10 bg-white border border-slate-200 rounded-2xl shadow-sm"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div class="space-y-5"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div class="space-y-1.5"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;label class="text-xs font-semibold text-slate-700"&gt;Fulde navn&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;input type="text" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm focus:bg-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition-all"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div class="space-y-1.5"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;label class="text-xs font-semibold text-slate-700"&gt;E-mail adresse&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;input type="email" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm focus:bg-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none transition-all"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div class="space-y-1.5"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;label class="text-xs font-semibold text-slate-700"&gt;Din besked&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>&lt;textarea rows="4" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm focus:bg-white focus:ring-2 focus:ring-brand-yellow focus:border-transparent outline-none resize-none transition-all"&gt;&lt;/textarea&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;button class="w-full py-3.5 mt-2 bg-slate-900 text-white font-semibold text-sm rounded-lg hover:bg-slate-800 transition-colors shadow-sm"&gt;Send besked&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- ARTIKEL DETALJESIDE (Erstatter Backend-sektionen) --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;section id="article-detail" class="page-section fade-in"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="max-w-3xl mx-auto px-6 py-40"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;button onclick="navigateTo('articles')" class="text-brand-yellow text-sm font-semibold mb-8 flex items-center gap-2 hover:text-brand-yellowHover transition-colors"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;line x1="19" y1="12" x2="5" y2="12"&gt;&lt;/line&gt;&lt;polyline points="12 19 5 12 12 5"&gt;&lt;/polyline&gt;&lt;/svg&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>Tilbage til oversigten</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div id="article-content-container"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;!-- Indhold genereres af JS --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Footer --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;footer class="border-t border-slate-200 py-16 px-6 bg-slate-50"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="text-center md:text-left"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;span class="text-xl font-bold tracking-tight mb-2 block text-slate-900"&gt;KODEKS&lt;span class="text-brand-yellow"&gt;.&lt;/span&gt;TECH&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;p class="text-sm text-slate-500"&gt;Uafhængig platform for krydsfeltet mellem jura og teknologi.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="text-xs font-semibold text-slate-400"&gt;© 2024 KODEKS.TECH&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// --- SUPABASE KONFIGURATION ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Indsæt dine Supabase URL og Anon Key her, når du er klar til at forbinde din database.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const SUPABASE_URL = 'INDSÆT_DIN_SUPABASE_URL_HER';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const SUPABASE_ANON_KEY = 'INDSÆT_DIN_SUPABASE_ANON_KEY_HER';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Eksempel på initiering når biblioteket er loadet:<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// --- SPROG (I18N) LOGIK ---</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let currentLang = 'da';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const translations = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>da: { navMedie: "Medie", navAkademi: "Akademi", navOm: "Om os", navKontakt: "Kontakt" },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>en: { navMedie: "Media", navAkademi: "Academy", navOm: "About", navKontakt: "Contact" }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function toggleLanguage() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Skift state</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>currentLang = currentLang === 'da' ? 'en' : 'da';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Opdater knap-tekst</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('lang-toggle').innerText = currentLang === 'da' ? 'EN' : 'DK';</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// Opdater navigationstekster som et eksempel på virkning</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.querySelector('[data-page="articles"]').innerText = translations[currentLang].navMedie;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.querySelector('[data-page="courses"]').innerText = translations[currentLang].navAkademi;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.querySelector('[data-page="about"]').innerText = translations[currentLang].navOm;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.querySelector('[data-page="contact"]').innerText = translations[currentLang].navKontakt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// NB: For en fuld oversættelse kan du udvide `translations`-objektet og opdatere andre elementer her.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const articles = [</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>{<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>id: 1,<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>title: "AI-forordningen: Nye krav til gennemsigtighed",<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>category: "Regulering",<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>date: "12. Maj 2024",<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>excerpt: "Hvordan de nye regler påvirker europæiske tech-virksomheder i praksis og hvilke skridt du skal tage nu.",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>content: "&lt;p class='mb-5'&gt;Europa-Parlamentet har endelig vedtaget AI-forordningen. Dette markerer et afgørende øjeblik for tech-industrien. Forordningen indfører en risikobaseret tilgang til kunstig intelligens, hvor systemer klassificeres i fire kategorier: uacceptabel risiko, høj risiko, begrænset risiko og minimal risiko.&lt;/p&gt;&lt;p class='mb-5'&gt;For danske virksomheder betyder det et øget krav til compliance, særligt hvis man udvikler eller anvender højrisiko-systemer. Dokumentationskravene vil blive markant skærpet, og det er afgørende at implementere 'AI compliance by design' fra starten af udviklingsfasen.&lt;/p&gt;"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>{<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>id: 2,<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>title: "Dataoverførsel til USA efter Privacy Framework",<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>category: "Data",<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>date: "10. Maj 2024",<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>excerpt: "En gennemgang af de nyeste retningslinjer for sikker overførsel, og hvordan I undgår compliance-fælder.",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>content: "&lt;p class='mb-5'&gt;Efter længere tids usikkerhed i kølvandet på Schrems II-dommen, har EU-Kommissionen vedtaget en afgørelse om tilstrækkeligheden af beskyttelsesniveauet for EU-US Data Privacy Framework.&lt;/p&gt;&lt;p class='mb-5'&gt;Dette giver et nyt juridisk grundlag for overførsel af personoplysninger til USA. Men det betyder ikke, at virksomheder bare kan læne sig tilbage. Man skal stadig sikre sig, at den amerikanske modtager er certificeret under det nye framework, og man skal løbende holde øje med retspraksis, da rettighedsorganisationer allerede truer med en 'Schrems III' sag.&lt;/p&gt;"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>{<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>id: 3,<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>title: "Smart Contracts og den danske aftaleret",<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>category: "Tech-jura",<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>date: "05. Maj 2024",<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>excerpt: "Er koden stærk nok til at erstatte den juridiske underskrift? En analyse af nyeste retspraksis.",</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>content: "&lt;p class='mb-5'&gt;Smart contracts, der afvikles på en blockchain, rejser en række interessante spørgsmål i relation til traditionel dansk aftaleret. Hvornår er et tilbud bindende? Hvordan håndteres ugyldighedsgrunde som svig eller udnyttelse i en autonom kode?&lt;/p&gt;&lt;p class='mb-5'&gt;Vores seneste analyse viser, at selvom koden er 'lov' i det tekniske økosystem, vil domstolene stadig anvende almindelige aftaleretlige principper. Det betyder, at en part ikke nødvendigvis kan påberåbe sig 'code is law', hvis koden udfører en handling, der åbenlyst strider mod hæderlig forretningsskik.&lt;/p&gt;"</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const courses = [</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>{ id: 1, title: "IT-kontraktstyring", type: "Certificering", price: "12.500 kr." },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>{ id: 2, title: "GDPR for Produktudviklere", type: "Workshop", price: "6.800 kr." },</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>{ id: 3, title: "Legal Tech Implementering", type: "Masterclass", price: "4.500 kr." }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>];</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function navigateTo(pageId) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.querySelectorAll('.page-section').forEach(sec =&gt; sec.classList.remove('active'));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById(pageId).classList.add('active');</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.querySelectorAll('.nav-link').forEach(link =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if(link.dataset.page === pageId) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>link.classList.add('text-slate-900');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>link.classList.remove('text-slate-500');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>link.classList.remove('text-slate-900');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>link.classList.add('text-slate-500');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>window.scrollTo(0, 0);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Funktion til at åbne en specifik artikel</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function openArticle(id) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const article = articles.find(a =&gt; a.id === id);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>if (!article) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>const container = document.getElementById('article-content-container');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>container.innerHTML = `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="mb-8 border-b border-slate-100 pb-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;span class="inline-flex w-fit px-2.5 py-1 bg-slate-100 text-[10px] font-semibold text-slate-600 uppercase tracking-wider rounded-md mb-4"&gt;${article.category}&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;p class="text-sm text-slate-500 font-medium mb-3"&gt;${article.date}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;h1 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 leading-tight"&gt;${article.title}&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="text-lg text-slate-600 font-normal leading-relaxed"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>${article.content}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>navigateTo('article-detail');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// Render Indhold</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const artList = document.getElementById('article-list');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>articles.forEach(art =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>artList.innerHTML += `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div onclick="openArticle(${art.id})" class="group cursor-pointer grid grid-cols-1 md:grid-cols-4 gap-6 p-6 border border-slate-100 hover:border-slate-300 hover:shadow-sm bg-white transition-all rounded-xl"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="md:col-span-1 flex flex-col justify-center"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xs text-slate-500 font-medium mb-3"&gt;${art.date}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="inline-flex w-fit px-2.5 py-1 bg-slate-100 text-[10px] font-semibold text-slate-600 uppercase tracking-wider rounded-md"&gt;${art.category}&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="md:col-span-3"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors leading-tight text-slate-900"&gt;${art.title}&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;p class="text-slate-600 text-sm leading-relaxed"&gt;${art.excerpt}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const courseList = document.getElementById('course-list');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>courses.forEach(c =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>courseList.innerHTML += `</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="group bg-white border border-slate-200 p-8 flex flex-col justify-between hover:border-brand-yellow hover:shadow-md transition-all duration-300 rounded-2xl"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="inline-block px-2.5 py-1 bg-yellow-50 text-brand-yellow text-[10px] font-bold uppercase tracking-wider rounded-md mb-6"&gt;${c.type}&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-xl font-bold mb-10 leading-snug text-slate-900"&gt;${c.title}&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="flex justify-between items-center border-t border-slate-100 pt-6 mt-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="text-base font-bold text-slate-900"&gt;${c.price}&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button class="h-10 w-10 rounded-full bg-slate-50 border border-slate-200 text-slate-600 flex items-center justify-center group-hover:bg-brand-yellow group-hover:border-brand-yellow group-hover:text-white transition-all"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;line x1="5" y1="12" x2="19" y2="12"&gt;&lt;/line&gt;&lt;polyline points="12 5 19 12 12 19"&gt;&lt;/polyline&gt;&lt;/svg&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>});</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
