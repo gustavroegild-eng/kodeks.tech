@@ -1,7 +1,7 @@
  <!DOCTYPE html>                                                               
   <html lang="da">                                                              
- <head>
-      <meta charset="UTF-8">
+  <head>
+      <meta charset="UTF-8">                                                    
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>KODEKS.TECH | Jura & Teknologi</title>
       <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wgh
@@ -22,7 +22,6 @@
           }
       </script>
 
-      <!-- NAVIGATION FUNCTIONS - SKAL VÆRE HER -->
       <script>
           function navigateTo(id) {
               var sections = document.querySelectorAll('.page-section');
@@ -44,211 +43,217 @@
               if (menuIcon) menuIcon.classList.toggle('hidden');
               if (closeIcon) closeIcon.classList.toggle('hidden');
           }
-        // LANGUAGE FUNCTIONS                                                         
-  var currentLang = 'da';
-  var translations = {
-      da: {
-          nav_articles: "Medie",
-          nav_courses: "Akademi",
-          nav_about: "Om os",
-          nav_contact: "Kontakt",
-          language_label: "Sprog",
-          hero_title_1: "Klarhed i et",
-          hero_title_2: "komplekst",
-          hero_title_3: "marked.",
-          hero_subtitle: "Vi specialiserer os i krydsfeltet mellem jura og
-  teknologi. Få indsigt, der gør en forskel.",
-          hero_cta_articles: "Læs artikler",
-          hero_cta_courses: "Se kurser",
-          articles_title: "Nyheder & Analyser",
-          articles_subtitle: "De seneste indsigter inden for tech-jura",
-          read_article: "Læs artiklen",
-          back_to_articles: "Tilbage til artikler",
-          loading: "Indlæser...",
-          no_articles: "Ingen artikler fundet.",
-          courses_title: "Akademi",
-          courses_subtitle: "Kurser og uddannelse inden for tech-jura",
-          view_course: "Se kursus",
-          back_to_courses: "Tilbage til kurser",
-          price_label: "Pris",
-          enroll_btn: "Tilmeld mig",
-          no_courses: "Ingen kurser fundet.",
-          no_description: "Ingen beskrivelse tilgængelig.",
-          about_title: "Om KODEKS.TECH",
-          about_subtitle: "Vores mission og vision",
-          about_mission_title: "Vores Mission",
-          about_mission_text: "KODEKS.TECH blev grundlagt med én klar vision: at
-   bygge bro mellem juraens kompleksitet og teknologiens muligheder.",
-          about_mission_text_2: "Vores team kombinerer juridisk ekspertise med
-  teknisk indsigt.",
-          about_values_title: "Vores Værdier",
-          about_value_1_title: "Klarhed",
-          about_value_1_text: "Vi gør det komplekse forståeligt",
-          about_value_2_title: "Innovation",
-          about_value_2_text: "Vi omfavner ny teknologi",
-          about_value_3_title: "Integritet",
-          about_value_3_text: "Vi leverer ærlig, uafhængig rådgivning",
-          about_expertise_title: "Vores Ekspertiseområder",
-          expertise_1: "GDPR & Databeskyttelse",
-          expertise_2: "AI & Maskinlæring",
-          expertise_3: "IT-kontrakter",
-          expertise_4: "Digital Compliance",
-          contact_title: "Kontakt os",
-          contact_subtitle: "Vi vender tilbage inden for 24 timer",
-          form_name: "Navn",
-          form_email: "E-mail",
-          form_subject: "Emne",
-          form_subject_select: "Vælg emne...",
-          form_subject_general: "Generel henvendelse",
-          form_subject_courses: "Spørgsmål om kurser",
-          form_subject_consulting: "Rådgivning",
-          form_subject_partnership: "Samarbejde",
-          form_message: "Besked",
-          form_submit: "Send besked",
-          form_success: "Tak for din besked!",
-          form_error_fill: "Udfyld venligst alle felter.",
-          form_error_email: "Indtast en gyldig e-mail.",
-          form_error_send: "Der opstod en fejl.",
-          contact_direct: "Eller kontakt os direkte:",
-          footer_description: "Din kilde til indsigt i krydsfeltet mellem jura
-  og teknologi.",
-          footer_nav: "Navigation",
-          footer_contact: "Kontakt",
-          footer_location: "København, Danmark",
-          footer_copyright: "© 2024 KODEKS.TECH — Alle rettigheder
+
+          var currentLang = 'da';
+
+          var translations = {
+              da: {
+                  nav_articles: "Medie",
+                  nav_courses: "Akademi",
+                  nav_about: "Om os",
+                  nav_contact: "Kontakt",
+                  language_label: "Sprog",
+                  hero_title_1: "Klarhed i et",
+                  hero_title_2: "komplekst",
+                  hero_title_3: "marked.",
+                  hero_subtitle: "Vi specialiserer os i krydsfeltet mellem jura
+  og teknologi. Få indsigt, der gør en forskel.",
+                  hero_cta_articles: "Læs artikler",
+                  hero_cta_courses: "Se kurser",
+                  articles_title: "Nyheder & Analyser",
+                  articles_subtitle: "De seneste indsigter inden for tech-jura",
+                  read_article: "Læs artiklen",
+                  back_to_articles: "Tilbage til artikler",
+                  loading: "Indlæser...",
+                  no_articles: "Ingen artikler fundet.",
+                  courses_title: "Akademi",
+                  courses_subtitle: "Kurser og uddannelse inden for tech-jura",
+                  view_course: "Se kursus",
+                  back_to_courses: "Tilbage til kurser",
+                  price_label: "Pris",
+                  enroll_btn: "Tilmeld mig",
+                  no_courses: "Ingen kurser fundet.",
+                  no_description: "Ingen beskrivelse tilgængelig.",
+                  about_title: "Om KODEKS.TECH",
+                  about_subtitle: "Vores mission og vision",
+                  about_mission_title: "Vores Mission",
+                  about_mission_text: "KODEKS.TECH blev grundlagt med én klar
+  vision: at bygge bro mellem juraens kompleksitet og teknologiens muligheder.
+  Vi tror på, at fremtidens juridiske rådgivning kræver dyb forståelse for begge
+   verdener.",
+                  about_mission_text_2: "Vores team af specialister kombinerer
+  juridisk ekspertise med teknisk indsigt for at levere rådgivning, der er både
+  praktisk anvendelig og fremtidssikret.",
+                  about_values_title: "Vores Værdier",
+                  about_value_1_title: "Klarhed",
+                  about_value_1_text: "Vi gør det komplekse forståeligt",
+                  about_value_2_title: "Innovation",
+                  about_value_2_text: "Vi omfavner ny teknologi",
+                  about_value_3_title: "Integritet",
+                  about_value_3_text: "Vi leverer ærlig, uafhængig rådgivning",
+                  about_expertise_title: "Vores Ekspertiseområder",
+                  expertise_1: "GDPR & Databeskyttelse",
+                  expertise_2: "AI & Maskinlæring",
+                  expertise_3: "IT-kontrakter",
+                  expertise_4: "Digital Compliance",
+                  contact_title: "Kontakt os",
+                  contact_subtitle: "Vi vender tilbage inden for 24 timer",
+                  form_name: "Navn",
+                  form_email: "E-mail",
+                  form_subject: "Emne",
+                  form_subject_select: "Vælg emne...",
+                  form_subject_general: "Generel henvendelse",
+                  form_subject_courses: "Spørgsmål om kurser",
+                  form_subject_consulting: "Rådgivning",
+                  form_subject_partnership: "Samarbejde",
+                  form_message: "Besked",
+                  form_submit: "Send besked",
+                  form_success: "Tak for din besked! Vi vender tilbage hurtigst
+  muligt.",
+                  form_error_fill: "Udfyld venligst alle felter.",
+                  form_error_email: "Indtast venligst en gyldig e-mailadresse.",
+                  form_error_send: "Der opstod en fejl. Prøv venligst igen.",
+                  contact_direct: "Eller kontakt os direkte:",
+                  footer_description: "Din kilde til indsigt i krydsfeltet
+  mellem jura og teknologi. Vi gør det komplekse forståeligt for
+  professionelle.",
+                  footer_nav: "Navigation",
+                  footer_contact: "Kontakt",
+                  footer_location: "København, Danmark",
+                  footer_copyright: "© 2024 KODEKS.TECH — Alle rettigheder
   forbeholdes",
-          footer_privacy: "Privatlivspolitik",
-          footer_terms: "Betingelser"
-      },
-      en: {
-          nav_articles: "Media",
-          nav_courses: "Academy",
-          nav_about: "About",
-          nav_contact: "Contact",
-          language_label: "Language",
-          hero_title_1: "Clarity in a",
-          hero_title_2: "complex",
-          hero_title_3: "market.",
-          hero_subtitle: "We specialize in the intersection of law and
+                  footer_privacy: "Privatlivspolitik",
+                  footer_terms: "Betingelser"
+              },
+              en: {
+                  nav_articles: "Media",
+                  nav_courses: "Academy",
+                  nav_about: "About",
+                  nav_contact: "Contact",
+                  language_label: "Language",
+                  hero_title_1: "Clarity in a",
+                  hero_title_2: "complex",
+                  hero_title_3: "market.",
+                  hero_subtitle: "We specialize in the intersection of law and
   technology. Gain insights that make a difference.",
-          hero_cta_articles: "Read articles",
-          hero_cta_courses: "View courses",
-          articles_title: "News & Analysis",
-          articles_subtitle: "The latest insights in tech law",
-          read_article: "Read article",
-          back_to_articles: "Back to articles",
-          loading: "Loading...",
-          no_articles: "No articles found.",
-          courses_title: "Academy",
-          courses_subtitle: "Courses and education in tech law",
-          view_course: "View course",
-          back_to_courses: "Back to courses",
-          price_label: "Price",
-          enroll_btn: "Enroll now",
-          no_courses: "No courses found.",
-          no_description: "No description available.",
-          about_title: "About KODEKS.TECH",
-          about_subtitle: "Our mission and vision",
-          about_mission_title: "Our Mission",
-          about_mission_text: "KODEKS.TECH was founded with one clear vision: to
-   bridge the gap between law and technology.",
-          about_mission_text_2: "Our team combines legal expertise with
-  technical insight.",
-          about_values_title: "Our Values",
-          about_value_1_title: "Clarity",
-          about_value_1_text: "We make the complex understandable",
-          about_value_2_title: "Innovation",
-          about_value_2_text: "We embrace new technology",
-          about_value_3_title: "Integrity",
-          about_value_3_text: "We deliver honest, independent advice",
-          about_expertise_title: "Our Areas of Expertise",
-          expertise_1: "GDPR & Data Protection",
-          expertise_2: "AI & Machine Learning",
-          expertise_3: "IT Contracts",
-          expertise_4: "Digital Compliance",
-          contact_title: "Contact us",
-          contact_subtitle: "We'll get back to you within 24 hours",
-          form_name: "Name",
-          form_email: "Email",
-          form_subject: "Subject",
-          form_subject_select: "Select subject...",
-          form_subject_general: "General inquiry",
-          form_subject_courses: "Course questions",
-          form_subject_consulting: "Consulting",
-          form_subject_partnership: "Partnership",
-          form_message: "Message",
-          form_submit: "Send message",
-          form_success: "Thank you for your message!",
-          form_error_fill: "Please fill in all fields.",
-          form_error_email: "Please enter a valid email.",
-          form_error_send: "An error occurred.",
-          contact_direct: "Or contact us directly:",
-          footer_description: "Your source for insights at the intersection of
-  law and technology.",
-          footer_nav: "Navigation",
-          footer_contact: "Contact",
-          footer_location: "Copenhagen, Denmark",
-          footer_copyright: "© 2024 KODEKS.TECH — All rights reserved",
-          footer_privacy: "Privacy Policy",
-          footer_terms: "Terms"
-      }
-  };
+                  hero_cta_articles: "Read articles",
+                  hero_cta_courses: "View courses",
+                  articles_title: "News & Analysis",
+                  articles_subtitle: "The latest insights in tech law",
+                  read_article: "Read article",
+                  back_to_articles: "Back to articles",
+                  loading: "Loading...",
+                  no_articles: "No articles found.",
+                  courses_title: "Academy",
+                  courses_subtitle: "Courses and education in tech law",
+                  view_course: "View course",
+                  back_to_courses: "Back to courses",
+                  price_label: "Price",
+                  enroll_btn: "Enroll now",
+                  no_courses: "No courses found.",
+                  no_description: "No description available.",
+                  about_title: "About KODEKS.TECH",
+                  about_subtitle: "Our mission and vision",
+                  about_mission_title: "Our Mission",
+                  about_mission_text: "KODEKS.TECH was founded with one clear
+  vision: to bridge the gap between the complexity of law and the possibilities
+  of technology. We believe that the future of legal advice requires a deep
+  understanding of both worlds.",
+                  about_mission_text_2: "Our team of specialists combines legal
+  expertise with technical insight to deliver advice that is both practically
+  applicable and future-proof.",
+                  about_values_title: "Our Values",
+                  about_value_1_title: "Clarity",
+                  about_value_1_text: "We make the complex understandable",
+                  about_value_2_title: "Innovation",
+                  about_value_2_text: "We embrace new technology",
+                  about_value_3_title: "Integrity",
+                  about_value_3_text: "We deliver honest, independent advice",
+                  about_expertise_title: "Our Areas of Expertise",
+                  expertise_1: "GDPR & Data Protection",
+                  expertise_2: "AI & Machine Learning",
+                  expertise_3: "IT Contracts",
+                  expertise_4: "Digital Compliance",
+                  contact_title: "Contact us",
+                  contact_subtitle: "We'll get back to you within 24 hours",
+                  form_name: "Name",
+                  form_email: "Email",
+                  form_subject: "Subject",
+                  form_subject_select: "Select subject...",
+                  form_subject_general: "General inquiry",
+                  form_subject_courses: "Course questions",
+                  form_subject_consulting: "Consulting",
+                  form_subject_partnership: "Partnership",
+                  form_message: "Message",
+                  form_submit: "Send message",
+                  form_success: "Thank you for your message! We'll get back to
+  you as soon as possible.",
+                  form_error_fill: "Please fill in all fields.",
+                  form_error_email: "Please enter a valid email address.",
+                  form_error_send: "An error occurred. Please try again.",
+                  contact_direct: "Or contact us directly:",
+                  footer_description: "Your source for insights at the
+  intersection of law and technology. We make the complex understandable for
+  professionals.",
+                  footer_nav: "Navigation",
+                  footer_contact: "Contact",
+                  footer_location: "Copenhagen, Denmark",
+                  footer_copyright: "© 2024 KODEKS.TECH — All rights reserved",
+                  footer_privacy: "Privacy Policy",
+                  footer_terms: "Terms"
+              }
+          };
 
-  function t(key) {
-      return translations[currentLang][key] || translations['da'][key] || key;
-  }
-
-  function setLanguage(lang) {
-      currentLang = lang;
-      document.documentElement.lang = lang;
-
-      // Update buttons
-      var langDa = document.getElementById('lang-da');
-      var langEn = document.getElementById('lang-en');
-      if (langDa) langDa.classList.toggle('active', lang === 'da');
-      if (langEn) langEn.classList.toggle('active', lang === 'en');
-
-      // Update mobile buttons
-      var mobileBtns = document.querySelectorAll('.lang-btn-mobile');
-      for (var i = 0; i < mobileBtns.length; i++) {
-          var btn = mobileBtns[i];
-          var btnLang = btn.getAttribute('data-lang');
-          btn.style.backgroundColor = btnLang === lang ? '#EAB308' : '';
-          btn.style.color = btnLang === lang ? 'white' : '';
-      }
-
-      // Update all text
-      var elements = document.querySelectorAll('[data-i18n]');
-      for (var i = 0; i < elements.length; i++) {
-          var el = elements[i];
-          var key = el.getAttribute('data-i18n');
-          if (translations[lang][key]) {
-              el.textContent = translations[lang][key];
+          function t(key) {
+              return translations[currentLang][key] || translations['da'][key]
+  || key;
           }
-      }
 
-      // Update select
-      var select = document.getElementById('form-subject');
-      if (select && select.options.length >= 5) {
-          select.options[0].textContent =
+          function setLanguage(lang) {
+              currentLang = lang;
+              document.documentElement.lang = lang;
+
+              var langDa = document.getElementById('lang-da');
+              var langEn = document.getElementById('lang-en');
+              if (langDa) langDa.classList.toggle('active', lang === 'da');
+              if (langEn) langEn.classList.toggle('active', lang === 'en');
+
+              var mobileBtns = document.querySelectorAll('.lang-btn-mobile');
+              for (var i = 0; i < mobileBtns.length; i++) {
+                  var btn = mobileBtns[i];
+                  var btnLang = btn.getAttribute('data-lang');
+                  btn.style.backgroundColor = btnLang === lang ? '#EAB308' : '';
+                  btn.style.color = btnLang === lang ? 'white' : '';
+              }
+
+              var elements = document.querySelectorAll('[data-i18n]');
+              for (var i = 0; i < elements.length; i++) {
+                  var el = elements[i];
+                  var key = el.getAttribute('data-i18n');
+                  if (translations[lang][key]) {
+                      el.textContent = translations[lang][key];
+                  }
+              }
+
+              var select = document.getElementById('form-subject');
+              if (select && select.options.length >= 5) {
+                  select.options[0].textContent =
   translations[lang].form_subject_select;
-          select.options[1].textContent =
+                  select.options[1].textContent =
   translations[lang].form_subject_general;
-          select.options[2].textContent =
+                  select.options[2].textContent =
   translations[lang].form_subject_courses;
-          select.options[3].textContent =
+                  select.options[3].textContent =
   translations[lang].form_subject_consulting;
-          select.options[4].textContent =
+                  select.options[4].textContent =
   translations[lang].form_subject_partnership;
-      }
+              }
 
-      // Re-render content if functions exist
-      if (typeof renderArticles === 'function') renderArticles();
-      if (typeof renderCourses === 'function') renderCourses();
+              if (typeof renderArticles === 'function') renderArticles();
+              if (typeof renderCourses === 'function') renderCourses();
 
-      localStorage.setItem('kodeks_lang', lang);
-  }
-
+              localStorage.setItem('kodeks_lang', lang);
+          }
       </script>
 
       <style>
