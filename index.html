@@ -441,9 +441,26 @@
           // ==================== SUPABASE KONFIGURATION ====================
           const SUPABASE_URL = 'https://rrggbjvyefvctkqnmfyf.supabase.co';
           const SUPABASE_ANON_KEY =
-  'sb_publishable_6F-gDnKDQ4Z7crZkuCuiLw_EL7W8-zv';
-          const _supabase = supabase.createClient(SUPABASE_URL,
-  SUPABASE_ANON_KEY);
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJyZ2di
+  anZ5ZWZ2Y3RrcW5tZnlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0NTQwNjMsImV4cCI6MjA4OD
+  AzMDA2M30.s_RfB4mMq1f_0mpBUlsp70u1O1joCLLnF3FIzDfhTYc';
+          let _supabase = null;
+  try {
+      _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  } catch (e) {
+      console.warn('Supabase kunne ikke initialiseres:', e);
+  }
+
+  Og opdater loadData() funktionen til:
+  async function loadData() {
+      if (!_supabase) {
+          document.getElementById('article-list').innerHTML = '<p
+  class="text-red-500">Supabase ikke konfigureret</p>';
+          document.getElementById('course-list').innerHTML = '<p
+  class="text-red-500">Supabase ikke konfigureret</p>';
+          return;
+      }
+
 
           // ==================== TRANSLATIONS ====================
           const translations = {
