@@ -29,12 +29,12 @@
 <body class="bg-white text-slate-900">
 
     <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 h-20">
-        <div class="max-w-6xl mx-auto px-6 h-full flex justify-between items-center">
+        <div class="max-w-4xl mx-auto px-6 h-full flex justify-between items-center">
             <a href="#" onclick="navigateTo('home')" class="text-xl font-bold tracking-tight">
                 KODEKS<span class="text-brand-yellow">.</span>TECH
             </a>
             <div class="hidden md:flex items-center space-x-8 text-xs font-bold uppercase tracking-wider text-slate-500">
-                <button onclick="navigateTo('articles')" class="hover:text-brand-yellow transition">Nyheder</button>
+                <button onclick="navigateTo('articles')" class="hover:text-brand-yellow transition">Medie</button>
                 <button onclick="navigateTo('courses')" class="hover:text-brand-yellow transition">Akademi</button>
                 <button onclick="navigateTo('pricing')" class="hover:text-brand-yellow transition">Priser</button>
                 <button onclick="navigateTo('about')" class="hover:text-brand-yellow transition">Om os</button>
@@ -45,135 +45,96 @@
 
     <main class="pt-32">
         <section id="home" class="page-section active fade-in px-6">
-            <div class="max-w-6xl mx-auto py-20">
+            <div class="max-w-4xl mx-auto py-20 text-center md:text-left">
                 <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-8">
                     Klarhed i et <br><span class="yellow-highlight italic">komplekst</span> marked.
                 </h1>
-                <p class="text-xl text-slate-600 max-w-2xl mb-10 leading-relaxed">
-                    Vi leverer præcis indsigt i tech-jura gennem uafhængig journalistik og specialiserede kurser til professionelle.
+                <p class="text-xl text-slate-600 max-w-2xl mb-10 leading-relaxed mx-auto md:mx-0">
+                    Vi leverer præcis indsigt i tech-jura gennem uafhængig journalistik og specialiserede kurser.
                 </p>
-                <div class="flex gap-4">
-                    <button onclick="navigateTo('courses')" class="px-8 py-4 bg-brand-yellow text-white font-bold rounded-xl shadow-lg shadow-yellow-500/20 hover:bg-brand-yellowHover transition">Se Kurser</button>
+                <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
+                    <button onclick="navigateTo('courses')" class="px-8 py-4 bg-brand-yellow text-white font-bold rounded-xl shadow-lg hover:bg-brand-yellowHover transition">Se Kurser</button>
                     <button onclick="navigateTo('articles')" class="px-8 py-4 border border-slate-200 font-bold rounded-xl hover:bg-slate-50 transition">Læs Seneste Nyt</button>
                 </div>
             </div>
         </section>
 
         <section id="articles" class="page-section fade-in px-6">
-            <div class="max-w-6xl mx-auto py-20">
-                <h2 class="text-4xl font-bold mb-12">Nyheder & Analyser</h2>
-                <div id="article-list" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="max-w-3xl mx-auto py-20">
+                <h2 class="text-4xl font-bold mb-12 text-center md:text-left">Nyheder & Analyser</h2>
+                <div id="article-list" class="space-y-6">
                     </div>
             </div>
         </section>
 
+        <section id="article-detail" class="page-section fade-in px-6">
+            <div class="max-w-2xl mx-auto py-20">
+                <button onclick="navigateTo('articles')" class="text-slate-400 hover:text-brand-yellow mb-8 flex items-center gap-2 transition font-semibold">
+                    ← Tilbage til alle artikler
+                </button>
+                <div id="article-content"></div>
+            </div>
+        </section>
+
+        <section id="courses" class="page-section fade-in px-6">
+            <div class="max-w-3xl mx-auto py-20">
+                <h2 class="text-4xl font-bold mb-12 text-center md:text-left">Aktuelle Kurser</h2>
+                <div id="course-list" class="space-y-6">
+                    </div>
+            </div>
+        </section>
+
+        <section id="course-detail" class="page-section fade-in px-6">
+            <div class="max-w-3xl mx-auto py-20">
+                <button onclick="navigateTo('courses')" class="text-slate-400 hover:text-brand-yellow mb-8 flex items-center gap-2 transition font-semibold">
+                    ← Se alle kurser
+                </button>
+                <div id="course-content"></div>
+            </div>
+        </section>
+
         <section id="pricing" class="page-section fade-in px-6">
-            <div class="max-w-6xl mx-auto py-20 text-center">
-                <h2 class="text-4xl font-bold mb-4">Enkelte Prisplaner</h2>
-                <p class="text-slate-600 mb-16">Vælg den løsning der passer til din virksomhed.</p>
+            <div class="max-w-4xl mx-auto py-20 text-center">
+                <h2 class="text-4xl font-bold mb-16 font-bold">Prisplaner</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="p-8 border border-slate-100 rounded-3xl bg-white shadow-sm">
-                        <h3 class="font-bold text-xl mb-2">Basis</h3>
-                        <div class="text-4xl font-bold mb-6">0 kr.<span class="text-sm text-slate-400 font-normal"> /md</span></div>
-                        <ul class="text-slate-600 space-y-4 mb-8 text-sm">
-                            <li>✓ Adgang til nyhedsbrev</li>
-                            <li>✓ Udvalgte artikler</li>
-                            <li>✕ Kursusmateriale</li>
-                        </ul>
-                        <button onclick="navigateTo('contact')" class="w-full py-3 border border-slate-200 rounded-xl font-bold">Vælg Basis</button>
-                    </div>
-                    <div class="p-8 border-2 border-brand-yellow rounded-3xl bg-white shadow-xl scale-105">
-                        <div class="inline-block px-3 py-1 bg-yellow-100 text-brand-yellow text-[10px] font-bold uppercase rounded-full mb-4">Mest Populær</div>
-                        <h3 class="font-bold text-xl mb-2">Professionel</h3>
-                        <div class="text-4xl font-bold mb-6">499 kr.<span class="text-sm text-slate-400 font-normal"> /md</span></div>
-                        <ul class="text-slate-600 space-y-4 mb-8 text-sm text-left">
-                            <li>✓ Fuld adgang til alle artikler</li>
-                            <li>✓ Dybdegående tech-analyser</li>
-                            <li>✓ 10% rabat på alle kurser</li>
-                        </ul>
-                        <button onclick="navigateTo('contact')" class="w-full py-3 bg-brand-yellow text-white rounded-xl font-bold">Kom i gang</button>
-                    </div>
-                    <div class="p-8 border border-slate-100 rounded-3xl bg-white shadow-sm">
-                        <h3 class="font-bold text-xl mb-2">Enterprise</h3>
-                        <div class="text-4xl font-bold mb-6">Kontakt os</div>
-                        <ul class="text-slate-600 space-y-4 mb-8 text-sm">
-                            <li>✓ Multi-bruger licenser</li>
-                            <li>✓ Skræddersyede workshops</li>
-                            <li>✓ Personlig rådgivning</li>
-                        </ul>
-                        <button onclick="navigateTo('contact')" class="w-full py-3 border border-slate-200 rounded-xl font-bold">Kontakt os</button>
+                        <h3 class="font-bold text-xl mb-6">Professionel</h3>
+                        <div class="text-4xl font-bold mb-6 text-slate-900">499 kr.<span class="text-sm text-slate-400 font-normal"> /md</span></div>
+                        <button onclick="navigateTo('contact')" class="w-full py-3 bg-slate-900 text-white rounded-xl font-bold">Vælg Plan</button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="courses" class="page-section fade-in px-6">
-            <div class="max-w-6xl mx-auto py-20">
-                <h2 class="text-4xl font-bold mb-12 text-center">Aktuelle Kurser</h2>
-                <div id="course-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    </div>
-            </div>
-        </section>
-
         <section id="about" class="page-section fade-in px-6">
-            <div class="max-w-3xl mx-auto py-20 text-center">
-                <h2 class="text-4xl font-bold mb-8">Vi bygger bro mellem kode og paragraffer</h2>
-                <p class="text-lg text-slate-600 leading-relaxed mb-6">
-                    Hos Kodeks.tech tror vi på, at den største barriere for innovation i dag ikke er teknologi, men forståelsen af de regulatoriske rammer.
-                </p>
-                <p class="text-lg text-slate-600 leading-relaxed">
-                    Vi er en uafhængig platform dedikeret til at sikre, at jurister, beslutningstagere og tech-professionelle taler samme sprog.
-                </p>
+            <div class="max-w-2xl mx-auto py-20 text-center md:text-left">
+                <h2 class="text-4xl font-bold mb-8 text-slate-900 text-center">Om Kodeks.tech</h2>
+                <p class="text-lg text-slate-600 leading-relaxed mb-4">Vi gør tech-jura forståeligt for alle professionelle.</p>
+                <p class="text-lg text-slate-600 leading-relaxed">Vores mission er at bygge bro mellem komplekse teknologier og de juridiske rammer, der definerer dem.</p>
             </div>
         </section>
 
         <section id="contact" class="page-section fade-in px-6">
             <div class="max-w-xl mx-auto py-20 border border-slate-100 rounded-3xl p-10 bg-slate-50">
-                <h2 class="text-3xl font-bold mb-6">Lad os tale sammen</h2>
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">Kontakt os</h2>
                 <div class="space-y-4">
-                    <input type="text" placeholder="Navn" class="w-full p-4 rounded-xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-brand-yellow outline-none">
-                    <input type="email" placeholder="E-mail" class="w-full p-4 rounded-xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-brand-yellow outline-none">
-                    <textarea placeholder="Besked" rows="4" class="w-full p-4 rounded-xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-brand-yellow outline-none"></textarea>
-                    <button class="w-full py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition">Send Besked</button>
+                    <input type="text" placeholder="Navn" class="w-full p-4 rounded-xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-brand-yellow outline-none transition-all">
+                    <textarea placeholder="Besked" rows="4" class="w-full p-4 rounded-xl border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-brand-yellow outline-none transition-all"></textarea>
+                    <button class="w-full py-4 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition shadow-lg">Send Besked</button>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="mt-20 border-t border-slate-100 bg-slate-50 py-20 px-6">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-            <div class="col-span-1 md:col-span-2">
-                <span class="text-xl font-bold">KODEKS<span class="text-brand-yellow">.</span>TECH</span>
-                <p class="text-slate-500 mt-4 max-w-sm">Din kilde til indsigt i krydsfeltet mellem jura og teknologi. Vi gør det komplekse forståeligt.</p>
-            </div>
-            <div>
-                <h4 class="font-bold text-sm uppercase tracking-widest mb-6">Navigation</h4>
-                <ul class="space-y-4 text-sm text-slate-600">
-                    <li><button onclick="navigateTo('articles')" class="hover:text-brand-yellow">Nyheder</button></li>
-                    <li><button onclick="navigateTo('courses')" class="hover:text-brand-yellow">Kurser</button></li>
-                    <li><button onclick="navigateTo('pricing')" class="hover:text-brand-yellow">Priser</button></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold text-sm uppercase tracking-widest mb-6">Kontakt</h4>
-                <ul class="space-y-4 text-sm text-slate-600">
-                    <li>hello@kodeks.tech</li>
-                    <li>København V, Danmark</li>
-                    <li class="font-bold text-slate-900">+45 12 34 56 78</li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-6xl mx-auto mt-20 pt-8 border-t border-slate-200 text-xs text-slate-400 flex justify-between">
-            <span>© 2024 Kodeks.tech - Alle rettigheder forbeholdes.</span>
-            <div class="space-x-4">
-                <a href="#" class="hover:underline">Privatlivspolitik</a>
-                <a href="#" class="hover:underline">Handelsbetingelser</a>
-            </div>
+    <footer class="mt-20 border-t border-slate-100 bg-slate-50 py-12 px-6">
+        <div class="max-w-4xl mx-auto text-center md:text-left">
+            <span class="text-xl font-bold uppercase tracking-tighter">KODEKS.TECH</span>
+            <p class="text-slate-400 text-sm mt-2">© 2024 Alle rettigheder forbeholdes.</p>
         </div>
     </footer>
 
     <script>
-        // NAVIGATION LOGIK
+        // NAVIGATION
         function navigateTo(id) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
@@ -182,42 +143,120 @@
 
         // DATA: ARTIKLER
         const articles = [
-            { id: 1, title: "AI-forordningen: Hvad du skal vide i 2024", category: "Regulering", date: "12. Maj", excerpt: "En dybdegående guide til de nye EU-regler for kunstig intelligens." },
-            { id: 2, title: "Dataoverførsel efter Privacy Framework", category: "Data", date: "10. Maj", excerpt: "Hvordan din virksomhed sikrer compliance ved overførsel til USA." }
+            { 
+                id: 1, 
+                title: "AI-forordningen: Hvad du skal vide i 2024", 
+                category: "Regulering", 
+                date: "12. Maj", 
+                excerpt: "En dybdegående guide til de nye EU-regler for kunstig intelligens og hvordan det påvirker danske virksomheder.",
+                content: "Her er den fulde tekst om AI-forordningen. Den dækker alt fra højrisiko-systemer til de nye krav om gennemsigtighed. Som virksomhed skal du være opmærksom på de nye dokumentationskrav..."
+            },
+            { 
+                id: 2, 
+                title: "Dataoverførsel efter Privacy Framework", 
+                category: "Data", 
+                date: "10. Maj", 
+                excerpt: "Hvordan din virksomhed sikrer compliance ved overførsel til USA efter de seneste EU-US aftaler.",
+                content: "Efter Schrems II har det været svært at overføre data lovligt. Men med det nye Data Privacy Framework er der kommet nye spilleregler, som vi gennemgår her..."
+            }
         ];
 
         // DATA: KURSER
         const courses = [
-            { id: 1, title: "IT-kontraktstyring", type: "Certificering", price: "12.500 kr." },
-            { id: 2, title: "GDPR for Produktledere", type: "Workshop", price: "6.800 kr." },
-            { id: 3, title: "Legal Tech 101", type: "Masterclass", price: "4.500 kr." }
+            { 
+                id: 1, 
+                title: "IT-kontraktstyring", 
+                type: "Certificering", 
+                price: "12.500 kr.",
+                description: "Lær at håndtere komplekse IT-kontrakter fra start til slut. Dette kursus er målrettet både indkøbere og jurister.",
+                modules: ["Grundlæggende kontraktret", "SLA og leverance", "Konflikthåndtering"]
+            },
+            { 
+                id: 2, 
+                title: "GDPR for Produktledere", 
+                type: "Workshop", 
+                price: "6.800 kr.",
+                description: "Hvordan bygger man produkter, der er 'compliant by design'? Vi gennemgår de praktiske værktøjer for teams.",
+                modules: ["Privacy by Design", "Dokumentationskrav", "Risikoanalyser"]
+            }
         ];
 
-        // RENDER ARTIKLER
+        // RENDER OVERSIGT: ARTIKLER (Lodret liste)
         const artList = document.getElementById('article-list');
         articles.forEach(art => {
             artList.innerHTML += `
-                <div class="p-8 border border-slate-100 rounded-3xl hover:border-brand-yellow transition-all cursor-pointer bg-white">
-                    <div class="text-xs font-bold text-brand-yellow uppercase mb-2">${art.category} • ${art.date}</div>
-                    <h3 class="text-2xl font-bold mb-4">${art.title}</h3>
-                    <p class="text-slate-600 mb-6">${art.excerpt}</p>
-                    <div class="text-slate-900 font-bold text-sm">Læs mere →</div>
+                <div onclick="openArticle(${art.id})" class="group p-8 border border-slate-100 rounded-2xl hover:border-brand-yellow hover:shadow-md transition-all cursor-pointer bg-white">
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-bold text-brand-yellow uppercase tracking-widest">${art.category}</span>
+                        <span class="text-xs text-slate-400 font-medium">${art.date}</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-3 group-hover:text-brand-yellow transition">${art.title}</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">${art.excerpt}</p>
+                    <div class="text-slate-900 font-bold text-sm inline-flex items-center gap-2">Læs hele artiklen <span class="group-hover:translate-x-1 transition-transform">→</span></div>
                 </div>`;
         });
 
-        // RENDER KURSER
+        // RENDER OVERSIGT: KURSER (Lodret liste)
         const courseList = document.getElementById('course-list');
         courses.forEach(c => {
             courseList.innerHTML += `
-                <div class="p-8 border border-slate-100 rounded-3xl bg-slate-50 hover:bg-white hover:shadow-xl transition-all">
-                    <div class="text-[10px] font-bold bg-white px-2 py-1 rounded inline-block mb-4 shadow-sm">${c.type}</div>
-                    <h3 class="text-xl font-bold mb-8">${c.title}</h3>
-                    <div class="flex justify-between items-center border-t border-slate-200 pt-6">
-                        <span class="font-bold">${c.price}</span>
-                        <button class="text-brand-yellow font-bold">Tilmeld →</button>
+                <div onclick="openCourse(${c.id})" class="group p-8 border border-slate-100 rounded-2xl bg-white hover:border-brand-yellow hover:shadow-md transition-all cursor-pointer">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                        <div>
+                            <span class="text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-1 rounded uppercase mb-3 inline-block">${c.type}</span>
+                            <h3 class="text-2xl font-bold group-hover:text-brand-yellow transition">${c.title}</h3>
+                            <p class="text-slate-500 text-sm mt-1">Pris: ${c.price}</p>
+                        </div>
+                        <div class="text-brand-yellow font-bold whitespace-nowrap">Se kursusdetaljer →</div>
                     </div>
                 </div>`;
         });
+
+        // ÅBN ARTIKEL
+        function openArticle(id) {
+            const article = articles.find(a => a.id === id);
+            const contentDiv = document.getElementById('article-content');
+            contentDiv.innerHTML = `
+                <div class="text-brand-yellow font-bold uppercase text-xs tracking-widest mb-4">${article.category} • ${article.date}</div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-8 leading-tight text-slate-900">${article.title}</h1>
+                <div class="text-lg text-slate-600 leading-relaxed space-y-6">${article.content}</div>
+                <div class="mt-16 pt-8 border-t border-slate-100 text-center">
+                    <p class="text-slate-500 text-sm mb-6">Vil du have besked om lignende artikler?</p>
+                    <button onclick="navigateTo('contact')" class="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition">Tilmeld Nyhedsbrev</button>
+                </div>
+            `;
+            navigateTo('article-detail');
+        }
+
+        // ÅBN KURSUS
+        function openCourse(id) {
+            const course = courses.find(c => c.id === id);
+            const contentDiv = document.getElementById('course-content');
+            let modulesHtml = course.modules.map(m => `<li class="flex items-center gap-3 text-slate-600 bg-slate-50 p-4 rounded-xl font-medium border border-slate-100">✓ ${m}</li>`).join('');
+            
+            contentDiv.innerHTML = `
+                <div class="mb-10">
+                    <span class="text-brand-yellow font-bold uppercase text-xs tracking-widest mb-2 inline-block">${course.type}</span>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 leading-tight">${course.title}</h1>
+                    <p class="text-xl text-slate-600 mb-10 leading-relaxed">${course.description}</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="md:col-span-2">
+                        <h3 class="font-bold text-2xl mb-6">Hvad lærer du på kurset?</h3>
+                        <ul class="space-y-4 mb-10">${modulesHtml}</ul>
+                    </div>
+                    <div>
+                        <div class="p-8 border border-slate-200 rounded-3xl bg-white shadow-xl md:sticky md:top-32">
+                            <div class="text-sm text-slate-400 mb-1">Kursusafgift:</div>
+                            <div class="text-3xl font-bold mb-8 text-slate-900">${course.price}</div>
+                            <button onclick="navigateTo('contact')" class="w-full py-4 bg-brand-yellow text-white rounded-xl font-bold shadow-lg hover:bg-brand-yellowHover transition mb-4">Tilmeld nu</button>
+                            <p class="text-[10px] text-slate-400 text-center uppercase tracking-widest font-bold">Inkl. kursusmateriale & forplejning</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            navigateTo('course-detail');
+        }
     </script>
 </body>
 </html>
