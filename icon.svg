@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                        <rect width="256" height="256" rx="60" fill="#ffffff" stroke="#e2e8f0" stroke-width="4"/>
+                        <!-- Left angle bracket -->
+                        <path d="M80 70 L30 128 L80 186" stroke="#eab308" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <!-- K combined -->
+                        <path d="M120 60 V196" stroke="#1e293b" stroke-width="28" stroke-linecap="round"/>
+                        <path d="M180 80 L120 128 L180 176" stroke="#1e293b" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
