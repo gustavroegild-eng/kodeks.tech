@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sådan virker AI — KODEKS.TECH</title>
+<meta name="description" content="Interaktiv visualisering af hvordan AI-sprogmodeller fungerer. Tokenisering, next-token prediction og kontekstvindue forklaret visuelt.">
+<meta property="og:title" content="Sådan virker AI — KODEKS.TECH">
+<meta property="og:description" content="Forstå AI-sprogmodeller visuelt: tokenisering, prediction og kontekst.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #283A49;
+  --navy-deep: #1a2733;
+  --navy-bg: #0f1922;
+  --navy-light: #3a5268;
+  --gold: #F1AE44;
+  --gold-dim: rgba(241, 174, 68, 0.15);
+  --gold-glow: rgba(241, 174, 68, 0.4);
+  --text: #e8e4df;
+  --text-dim: #8a9aaa;
+  --bg-card: rgba(40, 58, 73, 0.4);
+  --bg-card-solid: #1E2D3A;
+  --success: #5de4a5;
+  --danger: #f06868;
+  --info: #6bb8f0;
+  --purple: #b48cff;
+  --radius: 10px;
+  --transition: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--navy-bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── LAYOUT ── */
+.page-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── HEADER ── */
+.site-header {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 3rem;
+}
+
+.site-header .page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.header-nav a {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-left: 1.5rem;
+  transition: color 0.3s;
+}
+
+.header-nav a:hover { color: var(--gold); }
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 4rem 0 3rem;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--gold-dim);
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  color: var(--text);
+  line-height: 1.12;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 300;
+}
+
+/* ── MODULE NAV ── */
+.module-nav {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: center;
+  margin: 2.5rem 0 3.5rem;
+  flex-wrap: wrap;
+}
+
+.module-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.2rem;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s var(--transition);
+}
+
+.module-nav a:hover {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.module-nav .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
+/* ── SECTIONS ── */
+.module {
+  margin-bottom: 5rem;
+  scroll-margin-top: 2rem;
+}
+
+.module-header {
+  margin-bottom: 2rem;
+}
+
+.module-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.module-label::before {
+  content: '';
+  width: 20px;
+  height: 2px;
+  background: var(--gold);
+}
+
+.module h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.module-desc {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  max-width: 600px;
+}
+
+/* ── INTERACTIVE AREA ── */
+.demo-area {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: 2rem;
+  position: relative;
+}
+
+/* ── MODE TOGGLE ── */
+.mode-toggle {
+  display: flex;
+  background: rgba(15, 25, 34, 0.6);
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 1.5rem;
+  width: fit-content;
+}
+
+.mode-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.3s var(--transition);
+}
+
+.mode-btn.active {
+  background: var(--gold);
+  color: var(--navy-bg);
+  font-weight: 600;
+}
+
+.mode-btn:hover:not(.active) { color: var(--text); }
+
+/* ── INPUT FIELD ── */
+.text-input-wrapper {
+  position: relative;
+  margin-bottom: 1.2rem;
+}
+
+.text-input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  padding-right: 6rem;
+  background: rgba(15, 25, 34, 0.6);
+  border: 1.5px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  outline: none;
+  transition: border-color 0.3s;
+  resize: none;
+  min-height: 3.2rem;
+}
+
+.text-input:focus { border-color: var(--gold); }
+
+.text-input::placeholder { color: var(--text-dim); opacity: 0.5; }
+
+.input-action {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ── EXAMPLE CHIPS ── */
+.example-chips {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+
+.chip {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.3s var(--transition);
+}
+
+.chip:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* ── BUTTONS ── */
+.btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.6rem 1.3rem;
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s var(--transition);
+  letter-spacing: 0.01em;
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--navy-bg);
+}
+
+.btn-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px var(--gold-glow);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn-ghost:hover { border-color: var(--text-dim); color: var(--text); }
+
+.btn-sm { font-size: 0.75rem; padding: 0.45rem 1rem; }
+
+.controls {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ── TOKEN STYLES ── */
+.token-output {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 1.2rem;
+  background: rgba(15, 25, 34, 0.5);
+  border-radius: 8px;
+  min-height: 60px;
+  margin-top: 1rem;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.token {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(8px) scale(0.95);
+  transition: all 0.35s var(--transition);
+  cursor: default;
+}
+
+.token.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.token:hover { transform: translateY(-2px) scale(1.05); }
+
+.token-id {
+  font-size: 0.55rem;
+  opacity: 0.45;
+  font-weight: 400;
+}
+
+.tc-0 { background: rgba(241,174,68,0.18); color: var(--gold); border: 1px solid rgba(241,174,68,0.28); }
+.tc-1 { background: rgba(93,228,165,0.13); color: var(--success); border: 1px solid rgba(93,228,165,0.22); }
+.tc-2 { background: rgba(107,184,240,0.13); color: var(--info); border: 1px solid rgba(107,184,240,0.22); }
+.tc-3 { background: rgba(240,104,104,0.13); color: var(--danger); border: 1px solid rgba(240,104,104,0.22); }
+.tc-4 { background: rgba(180,140,255,0.13); color: var(--purple); border: 1px solid rgba(180,140,255,0.22); }
+
+.stats-row {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.stats-row.visible { opacity: 1; }
+
+.stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.stat-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-top: 0.15rem;
+}
+
+/* ── PREDICTION STYLES ── */
+.pred-context {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.15rem;
+  color: var(--text);
+  padding: 1.2rem 1.5rem;
+  background: rgba(15,25,34,0.5);
+  border-radius: 8px;
+  line-height: 1.6;
+  border: 1px solid rgba(255,255,255,0.04);
+  min-height: 3.5rem;
+}
+
+.pred-context .gen { color: var(--gold); }
+
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--gold);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+.prob-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 1.2rem 1.5rem;
+  background: rgba(15,25,34,0.5);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.prob-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  opacity: 0;
+  transform: translateX(-15px);
+  transition: all 0.45s var(--transition);
+}
+
+.prob-row.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.prob-word {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  width: 110px;
+  text-align: right;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.prob-track {
+  flex: 1;
+  height: 24px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.prob-fill {
+  height: 100%;
+  border-radius: 5px;
+  width: 0%;
+  transition: width 0.8s var(--transition);
+}
+
+.prob-fill.gold { background: linear-gradient(90deg, var(--gold), #f0c76e); }
+.prob-fill.dim { background: linear-gradient(90deg, var(--navy-light), rgba(58,82,104,0.5)); }
+
+.prob-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  width: 42px;
+  text-align: right;
+}
+
+.prob-row.selected .prob-word { color: var(--gold); }
+.prob-row.selected .prob-pct { color: var(--gold); }
+
+.insight-box {
+  margin-top: 1rem;
+  padding: 1rem 1.2rem;
+  background: rgba(241,174,68,0.08);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.85rem;
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.insight-box.visible { opacity: 1; }
+
+.insight-box strong { color: var(--gold); }
+
+/* ── CONTEXT WINDOW STYLES ── */
+.ctx-panels {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.ctx-panel {
+  background: rgba(15,25,34,0.5);
+  border-radius: 8px;
+  padding: 1.2rem;
+  border: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.ctx-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ctx-label::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.ctx-body {
+  flex: 1;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.ctx-body .hl {
+  background: var(--gold-dim);
+  color: var(--gold);
+  padding: 0.05rem 0.25rem;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+.ctx-arrow {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+.ctx-arrow.visible { opacity: 1; }
+
+.ctx-meter {
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.ctx-meter-top {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+
+.ctx-meter-bar {
+  height: 5px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ctx-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--success));
+  border-radius: 3px;
+  width: 0%;
+  transition: width 1.2s var(--transition);
+}
+
+/* ── FOOTER ── */
+.site-footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem 0;
+  margin-top: 3rem;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+}
+
+.footer-links a {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-left: 1.2rem;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover { color: var(--gold); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .ctx-panels {
+    grid-template-columns: 1fr;
+  }
+  .ctx-arrow {
+    transform: rotate(90deg);
+    justify-content: center;
+  }
+  .hero { padding: 2.5rem 0 2rem; }
+  .demo-area { padding: 1.2rem; }
+  .prob-word { width: 80px; font-size: 0.75rem; }
+  .module-nav { gap: 0.5rem; }
+  .module-nav a { font-size: 0.78rem; padding: 0.5rem 0.9rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ HEADER ════════ -->
+<header class="site-header">
+  <div class="page-wrapper">
+    <a href="https://kodeks.tech" class="logo">KODEKS.TECH</a>
+    <nav class="header-nav">
+      <a href="https://kodeks.tech">Forside</a>
+      <a href="https://kodeks.tech/#akademi">Akademi</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ════════ HERO ════════ -->
+<section class="hero">
+  <div class="page-wrapper">
+    <div class="hero-badge">Interaktiv guide</div>
+    <h1>Sådan virker AI</h1>
+    <p>Forstå mekanismerne bag sprogmodeller som ChatGPT og Claude — visuelt og interaktivt. Prøv med din egen tekst.</p>
+  </div>
+</section>
+
+<!-- ════════ MODULE NAV ════════ -->
+<nav class="module-nav">
+  <a href="#tokenisering"><span class="num">01</span> Tokenisering</a>
+  <a href="#prediction"><span class="num">02</span> Next-Token Prediction</a>
+  <a href="#kontekst"><span class="num">03</span> Kontekstvindue</a>
+</nav>
+
+<div class="page-wrapper">
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 1: TOKENISERING                            -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module" id="tokenisering">
+  <div class="module-header">
+    <div class="module-label">Modul 01</div>
+    <h2>Tokenisering</h2>
+    <p class="module-desc">AI-modeller læser ikke ord som mennesker. De nedbryder tekst til <em>tokens</em> — små bidder af tegn, som hver får et numerisk ID.</p>
+  </div>
+
+  <div class="demo-area">
+    <div class="text-input-wrapper">
+      <textarea class="text-input" id="tok-input" rows="2" placeholder="Skriv en sætning her — eller vælg et eksempel nedenfor..."></textarea>
+      <div class="input-action">
+        <button class="btn btn-gold btn-sm" onclick="runTokenization()">Kør ▸</button>
+      </div>
+    </div>
+
+    <div class="example-chips">
+      <button class="chip" onclick="loadTokExample(0)">Kontraktklausul</button>
+      <button class="chip" onclick="loadTokExample(1)">GDPR-tekst</button>
+      <button class="chip" onclick="loadTokExample(2)">AI Act-artikel</button>
+      <button class="chip" onclick="loadTokExample(3)">Engelsk kontrakt</button>
+    </div>
+
+    <div class="token-output" id="tok-output"></div>
+
+    <div class="insight-box" id="tok-insight" style="display:none">
+      <strong>Bemærk:</strong> Dansk tekst bruger typisk flere tokens end tilsvarende engelsk tekst, fordi modellerne primært er trænet på engelsk. Det betyder, at danske prompts er "dyrere" i kontekstvinduet.
+    </div>
+
+    <div class="controls">
+      <button class="btn btn-ghost btn-sm" onclick="resetTokenization()">Nulstil</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 2: NEXT-TOKEN PREDICTION                   -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module" id="prediction">
+  <div class="module-header">
+    <div class="module-label">Modul 02</div>
+    <h2>Next-Token Prediction</h2>
+    <p class="module-desc">Modellen genererer tekst ved at forudsige ét token ad gangen. Den vælger det statistisk mest sandsynlige — den "forstår" ikke indholdet.</p>
+  </div>
+
+  <div class="demo-area">
+    <div class="example-chips">
+      <button class="chip" onclick="loadPredExample(0)">GDPR art. 6</button>
+      <button class="chip" onclick="loadPredExample(1)">AI Act</button>
+      <button class="chip" onclick="loadPredExample(2)">Kontraktret</button>
+    </div>
+
+    <div class="pred-context" id="pred-context" style="display:none"></div>
+    <div class="prob-bars" id="pred-bars" style="display:none"></div>
+
+    <div class="insight-box" id="pred-insight" style="display:none">
+      <strong>Kernepointe:</strong> Modellen "gætter" overbevisende, men den arbejder med statistiske mønstre — ikke juridisk forståelse. Derfor kan den hallucinere: producere tekst der lyder korrekt, men er faktuelt forkert.
+    </div>
+
+    <div class="controls">
+      <button class="btn btn-gold btn-sm" onclick="stepPrediction()" id="pred-step-btn" style="display:none">Næste ord ▸</button>
+      <button class="btn btn-ghost btn-sm" onclick="resetPrediction()">Nulstil</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- MODULE 3: KONTEKSTVINDUE                          -->
+<!-- ══════════════════════════════════════════════════ -->
+<section class="module" id="kontekst">
+  <div class="module-header">
+    <div class="module-label">Modul 03</div>
+    <h2>Kontekstvindue</h2>
+    <p class="module-desc">Alt modellen "ved" i en samtale er det, der er i kontekstvinduet: din prompt, eventuel kontekst, og dens eget output. Intet mere.</p>
+  </div>
+
+  <div class="demo-area">
+    <div class="example-chips">
+      <button class="chip" onclick="loadCtxExample(0)">GDPR art. 28</button>
+      <button class="chip" onclick="loadCtxExample(1)">Kontraktreview</button>
+      <button class="chip" onclick="loadCtxExample(2)">Due diligence</button>
+    </div>
+
+    <div class="ctx-panels" id="ctx-panels" style="display:none">
+      <div class="ctx-panel">
+        <div class="ctx-label">Din prompt</div>
+        <div class="ctx-body" id="ctx-prompt"></div>
+        <div class="ctx-meter">
+          <div class="ctx-meter-top">
+            <span>Kontekst brugt</span>
+            <span id="ctx-pct">0%</span>
+          </div>
+          <div class="ctx-meter-bar">
+            <div class="ctx-meter-fill" id="ctx-fill"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ctx-arrow" id="ctx-arrow">→</div>
+      <div class="ctx-panel">
+        <div class="ctx-label">AI output</div>
+        <div class="ctx-body" id="ctx-response"></div>
+      </div>
+    </div>
+
+    <div class="insight-box" id="ctx-insight" style="display:none">
+      <strong>Konsekvens:</strong> Modellen har ingen hukommelse mellem samtaler. Den kender kun det, du giver den i prompten. Desto bedre og mere præcis din prompt er, desto bedre output.
+    </div>
+
+    <div class="controls">
+      <button class="btn btn-ghost btn-sm" onclick="resetContext()">Nulstil</button>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page-wrapper -->
+
+<!-- ════════ FOOTER ════════ -->
+<footer class="site-footer">
+  <div class="page-wrapper">
+    <div class="footer-inner">
+      <span class="footer-brand">KODEKS.TECH</span>
+      <nav class="footer-links">
+        <a href="https://kodeks.tech">Forside</a>
+        <a href="https://kodeks.tech/#akademi">Akademi</a>
+        <a href="mailto:hello@kodeks.tech">Kontakt</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════
+// TOKENIZATION
+// ═══════════════════════════════════════════
+
+const tokExamples = [
+  "Retten finder, at sagsøgte har handlet i strid med kontrakten.",
+  "Behandling af personoplysninger kræver et gyldigt retsgrundlag i henhold til databeskyttelsesforordningens artikel 6.",
+  "Udbydere af højrisiko-AI-systemer skal sikre, at systemerne er underlagt passende menneskeligt tilsyn.",
+  "The Contractor shall indemnify and hold harmless the Client against all claims arising from breach of contract.",
+];
+
+// Simple simulated tokenizer — splits on word boundaries and common subwords
+function simTokenize(text) {
+  const results = [];
+  // Split into rough tokens: punctuation separate, otherwise groups of letters
+  const re = /([A-Za-zÀ-ÿ]+|[0-9]+|[^\s])/g;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    const word = m[1];
+    // Simulate subword splitting for longer words
+    if (word.length > 5 && /[a-zà-ÿ]/.test(word)) {
+      const mid = Math.ceil(word.length * 0.55);
+      results.push({ text: word.slice(0, mid), id: hashCode(word.slice(0, mid)) });
+      results.push({ text: word.slice(mid), id: hashCode(word.slice(mid)) });
+    } else {
+      results.push({ text: word, id: hashCode(word) });
+    }
+  }
+  return results;
+}
+
+function hashCode(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) {
+    h = ((h << 5) - h + s.charCodeAt(i)) & 0xffff;
+  }
+  return Math.abs(h) % 99999;
+}
+
+function loadTokExample(i) {
+  document.getElementById('tok-input').value = tokExamples[i];
+  runTokenization();
+}
+
+function runTokenization() {
+  const text = document.getElementById('tok-input').value.trim();
+  if (!text) return;
+
+  resetTokenization();
+  const tokens = simTokenize(text);
+  const output = document.getElementById('tok-output');
+
+  tokens.forEach((t, idx) => {
+    const el = document.createElement('div');
+    el.className = `token tc-${idx % 5}`;
+    el.innerHTML = `<span>"${t.text}"</span><span class="token-id">${t.id}</span>`;
+    output.appendChild(el);
+    setTimeout(() => el.classList.add('visible'), 55 * idx);
+  });
+
+  setTimeout(() => {
+    const insight = document.getElementById('tok-insight');
+    insight.style.display = '';
+    insight.classList.add('visible');
+  }, 55 * tokens.length + 150);
+}
+
+function resetTokenization() {
+  document.getElementById('tok-output').innerHTML = '';
+  const insight = document.getElementById('tok-insight');
+  insight.style.display = 'none';
+  insight.classList.remove('visible');
+}
+
+// ═══════════════════════════════════════════
+// PREDICTION
+// ═══════════════════════════════════════════
+
+const predExamples = [
+  {
+    base: "Ifølge GDPR artikel 6 kræver behandling af persondata et",
+    steps: [
+      { candidates: [{w:"gyldigt",p:42,s:true},{w:"lovligt",p:23},{w:"retligt",p:15},{w:"juridisk",p:11},{w:"legitimt",p:9}], append:"gyldigt" },
+      { candidates: [{w:"behandlings",p:55,s:true},{w:"retsligt",p:18},{w:"samtykke",p:14},{w:"hjemmel",p:8},{w:"formål",p:5}], append:"behandlings" },
+      { candidates: [{w:"grundlag",p:71,s:true},{w:"formål",p:12},{w:"hjemmel",p:9},{w:"samtykke",p:5},{w:"krav",p:3}], append:"grundlag" },
+      { candidates: [{w:".",p:38,s:true},{w:",",p:31},{w:"—",p:14},{w:"for",p:10},{w:"som",p:7}], append:"." },
+    ]
+  },
+  {
+    base: "AI-forordningen klassificerer systemer baseret på deres",
+    steps: [
+      { candidates: [{w:"risiko",p:58,s:true},{w:"anvendelse",p:19},{w:"formål",p:12},{w:"påvirkning",p:7},{w:"type",p:4}], append:"risiko" },
+      { candidates: [{w:"niveau",p:64,s:true},{w:"profil",p:15},{w:"kategori",p:11},{w:"vurdering",p:6},{w:".",p:4}], append:"niveau" },
+      { candidates: [{w:",",p:35,s:true},{w:".",p:28},{w:"og",p:18},{w:"fra",p:12},{w:"i",p:7}], append:"," },
+      { candidates: [{w:"hvor",p:33,s:true},{w:"hvilket",p:22},{w:"og",p:20},{w:"fra",p:15},{w:"med",p:10}], append:"hvor" },
+    ]
+  },
+  {
+    base: "Ved misligholdelse af kontrakten kan den forurettede part kræve",
+    steps: [
+      { candidates: [{w:"erstatning",p:47,s:true},{w:"ophævelse",p:24},{w:"afhjælpning",p:14},{w:"kompensation",p:10},{w:"omlevering",p:5}], append:"erstatning" },
+      { candidates: [{w:"for",p:52,s:true},{w:".",p:21},{w:",",p:14},{w:"og",p:8},{w:"efter",p:5}], append:"for" },
+      { candidates: [{w:"det",p:38,s:true},{w:"tab",p:29},{w:"den",p:16},{w:"dokumenteret",p:10},{w:"direkte",p:7}], append:"det" },
+      { candidates: [{w:"lidte",p:61,s:true},{w:"økonomiske",p:18},{w:"opståede",p:11},{w:"direkte",p:6},{w:"samlede",p:4}], append:"lidte" },
+    ]
+  }
+];
+
+let predState = { base: '', steps: [], step: 0, current: '', running: false };
+
+function loadPredExample(i) {
+  doResetPrediction();
+  const ex = predExamples[i];
+  predState = { base: ex.base, steps: ex.steps, step: 0, current: ex.base, running: true };
+  showPredUI();
+  setTimeout(stepPrediction, 300);
+}
+
+function showPredUI() {
+  const ctxEl = document.getElementById('pred-context');
+  ctxEl.style.display = '';
+  ctxEl.innerHTML = escapeHTML(predState.current) + '<span class="cursor-blink"></span>';
+  document.getElementById('pred-bars').style.display = '';
+  document.getElementById('pred-bars').innerHTML = '';
+  document.getElementById('pred-step-btn').style.display = '';
+  document.getElementById('pred-step-btn').disabled = false;
+  document.getElementById('pred-step-btn').textContent = 'Næste ord ▸';
+}
+
+function escapeHTML(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function stepPrediction() {
+  if (predState.step >= predState.steps.length) return;
+
+  const step = predState.steps[predState.step];
+  const barsEl = document.getElementById('pred-bars');
+  barsEl.innerHTML = '';
+
+  step.candidates.forEach((c, i) => {
+    const row = document.createElement('div');
+    row.className = `prob-row${c.s ? ' selected' : ''}`;
+    row.innerHTML = `
+      <div class="prob-word">${escapeHTML(c.w)}</div>
+      <div class="prob-track"><div class="prob-fill ${c.s ? 'gold' : 'dim'}" id="pbar-${predState.step}-${i}"></div></div>
+      <div class="prob-pct">${c.p}%</div>
+    `;
+    barsEl.appendChild(row);
+    setTimeout(() => {
+      row.classList.add('visible');
+      const bar = document.getElementById(`pbar-${predState.step}-${i}`);
+      if (bar) bar.style.width = c.p + '%';
+    }, 80 * i);
+  });
+
+  // Append chosen word after bars animate
+  setTimeout(() => {
+    const appendText = step.append;
+    const sep = /^[.,;:!?—]/.test(appendText) ? '' : ' ';
+    predState.current += sep + appendText;
+
+    const ctxEl = document.getElementById('pred-context');
+    const genPart = predState.current.slice(predState.base.length);
+    ctxEl.innerHTML = escapeHTML(predState.base) + '<span class="gen">' + escapeHTML(genPart) + '</span><span class="cursor-blink"></span>';
+    predState.step++;
+
+    if (predState.step >= predState.steps.length) {
+      document.getElementById('pred-insight').style.display = '';
+      document.getElementById('pred-insight').classList.add('visible');
+      document.getElementById('pred-step-btn').textContent = 'Færdig ✓';
+      document.getElementById('pred-step-btn').disabled = true;
+    }
+  }, 80 * step.candidates.length + 500);
+}
+
+function resetPrediction() { doResetPrediction(); }
+
+function doResetPrediction() {
+  predState = { base: '', steps: [], step: 0, current: '', running: false };
+  document.getElementById('pred-context').style.display = 'none';
+  document.getElementById('pred-context').innerHTML = '';
+  document.getElementById('pred-bars').style.display = 'none';
+  document.getElementById('pred-bars').innerHTML = '';
+  document.getElementById('pred-insight').style.display = 'none';
+  document.getElementById('pred-insight').classList.remove('visible');
+  const btn = document.getElementById('pred-step-btn');
+  btn.style.display = 'none';
+  btn.textContent = 'Næste ord ▸';
+  btn.disabled = false;
+}
+
+// ═══════════════════════════════════════════
+// CONTEXT WINDOW
+// ═══════════════════════════════════════════
+
+const ctxExamples = [
+  {
+    prompt: 'Du er en dansk juridisk assistent. Gennemgå denne kontraktklausul og vurdér om den er i overensstemmelse med GDPR art. 28:\n\n"Databehandleren må frit overlade behandlingen til enhver underleverandør uden forudgående skriftlig godkendelse fra den dataansvarlige."',
+    response: 'Klausulen er <span class="hl">ikke i overensstemmelse</span> med GDPR art. 28, stk. 2.\n\nArt. 28(2) kræver, at databehandleren <span class="hl">ikke underleverandører behandlingen</span> uden forudgående specifik eller generel skriftlig godkendelse fra den dataansvarlige.\n\n<span class="hl">Anbefaling:</span> Erstat med en klausul der kræver forudgående skriftlig godkendelse.',
+    pct: 18
+  },
+  {
+    prompt: 'Gennemgå denne fortrolighedsklausul og identificér potentielle problemer:\n\n"Fortrolighed gælder i 1 år efter kontraktens ophør. Fortrolig information omfatter al information udvekslet mellem parterne."',
+    response: 'To potentielle problemer identificeret:\n\n<span class="hl">1. Tidsbegrænsningen</span> på 1 år kan være utilstrækkelig for forretningshemmeligheder, som typisk beskyttes i 3-5 år.\n\n<span class="hl">2. Definitionen</span> er for bred — "al information" kan være uhensigtsmæssig. Overvej at præcisere med kategorier og undtagelser.',
+    pct: 14
+  },
+  {
+    prompt: 'Du er M&A-rådgiver. Hvilke red flags skal jeg kigge efter i et targets compliance-setup ift. AI-forordningen?',
+    response: 'Fokusér på følgende red flags:\n\n<span class="hl">Klassificering:</span> Har target kortlagt sine AI-systemer efter risikoniveau? Manglende kortlægning tyder på lav modenhed.\n\n<span class="hl">Dokumentation:</span> Er der teknisk dokumentation for højrisiko-systemer? Manglende docs = potentiel regulatory debt.\n\n<span class="hl">Governance:</span> Findes der en ansvarlig for AI-compliance? Ellers er risikoen udelegeret.',
+    pct: 22
+  },
+];
+
+let ctxTypingTimers = [];
+
+function loadCtxExample(i) {
+  doResetContext();
+  setTimeout(() => runContextWithData(ctxExamples[i]), 100);
+}
+
+function runContextWithData(data) {
+  // Clear any pending timers
+  ctxTypingTimers.forEach(t => clearTimeout(t));
+  ctxTypingTimers = [];
+
+  const panels = document.getElementById('ctx-panels');
+  panels.style.display = '';
+
+  // Prepare prompt HTML — escape user text, replace newlines
+  const promptHTML = escapeHTML(data.prompt).replace(/\n/g, '<br>');
+  const responseHTML = data.response.replace(/\n/g, '<br>');
+
+  const promptEl = document.getElementById('ctx-prompt');
+  promptEl.innerHTML = '';
+  typeHTMLSafe(promptEl, promptHTML, 10);
+
+  ctxTypingTimers.push(setTimeout(() => {
+    document.getElementById('ctx-fill').style.width = (data.pct * 0.6) + '%';
+    document.getElementById('ctx-pct').textContent = Math.round(data.pct * 0.6) + '%';
+  }, 600));
+
+  ctxTypingTimers.push(setTimeout(() => {
+    document.getElementById('ctx-arrow').classList.add('visible');
+  }, 800));
+
+  ctxTypingTimers.push(setTimeout(() => {
+    const respEl = document.getElementById('ctx-response');
+    respEl.innerHTML = '';
+    typeHTMLSafe(respEl, responseHTML, 8);
+
+    document.getElementById('ctx-fill').style.width = data.pct + '%';
+    document.getElementById('ctx-pct').textContent = data.pct + '%';
+  }, 1200));
+
+  ctxTypingTimers.push(setTimeout(() => {
+    document.getElementById('ctx-insight').style.display = '';
+    document.getElementById('ctx-insight').classList.add('visible');
+  }, 2500));
+}
+
+function resetContext() { doResetContext(); }
+
+function doResetContext() {
+  ctxTypingTimers.forEach(t => clearTimeout(t));
+  ctxTypingTimers = [];
+  document.getElementById('ctx-panels').style.display = 'none';
+  document.getElementById('ctx-prompt').innerHTML = '';
+  document.getElementById('ctx-response').innerHTML = '';
+  document.getElementById('ctx-arrow').classList.remove('visible');
+  document.getElementById('ctx-fill').style.width = '0%';
+  document.getElementById('ctx-pct').textContent = '0%';
+  document.getElementById('ctx-insight').style.display = 'none';
+  document.getElementById('ctx-insight').classList.remove('visible');
+}
+
+// ═══════════════════════════════════════════
+// TYPING HELPER
+// ═══════════════════════════════════════════
+
+function typeHTMLSafe(el, html, speed) {
+  // Parse HTML into segments: [{type:'text',val:'...'}, {type:'tag',val:'<br>'}, ...]
+  const segments = [];
+  let buf = '';
+  let inTag = false;
+  for (let i = 0; i < html.length; i++) {
+    const ch = html[i];
+    if (ch === '<') {
+      if (buf) segments.push({ type: 'text', val: buf });
+      buf = '<';
+      inTag = true;
+    } else if (ch === '>' && inTag) {
+      buf += '>';
+      segments.push({ type: 'tag', val: buf });
+      buf = '';
+      inTag = false;
+    } else {
+      buf += ch;
+    }
+  }
+  if (buf) segments.push({ type: inTag ? 'tag' : 'text', val: buf });
+
+  // Build character-by-character frames
+  // Tags appear instantly; text characters appear one at a time
+  let totalChars = 0;
+  segments.forEach(s => { if (s.type === 'text') totalChars += s.val.length; });
+
+  let charIdx = 0;
+  el.innerHTML = '';
+
+  function tick() {
+    if (charIdx > totalChars) return;
+
+    let output = '';
+    let seen = 0;
+    for (const seg of segments) {
+      if (seg.type === 'tag') {
+        output += seg.val;
+      } else {
+        const remaining = charIdx - seen;
+        if (remaining >= seg.val.length) {
+          output += seg.val;
+          seen += seg.val.length;
+        } else if (remaining > 0) {
+          output += seg.val.slice(0, remaining);
+          seen += remaining;
+          break;
+        } else {
+          break;
+        }
+      }
+    }
+
+    el.innerHTML = output;
+    charIdx++;
+    if (charIdx <= totalChars) {
+      setTimeout(tick, speed);
+    }
+  }
+  tick();
+}
+
+// Keep old name as alias for backward compat
+function typeHTML(el, html, speed) { typeHTMLSafe(el, html, speed); }
+
+// buildPartial no longer needed but kept for safety
+function buildPartial(html, charCount) {
+  let result = '';
+  let textSeen = 0;
+  let inTag = false;
+
+  for (let i = 0; i < html.length; i++) {
+    if (html[i] === '<') { inTag = true; result += html[i]; continue; }
+    if (html[i] === '>') { inTag = false; result += html[i]; continue; }
+    if (inTag) { result += html[i]; continue; }
+    if (textSeen < charCount) { result += html[i]; textSeen++; }
+    else break;
+  }
+  return result;
+}
+</script>
+</body>
+</html>
